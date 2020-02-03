@@ -8,7 +8,9 @@ public class MotionController : MonoBehaviour
     [Tooltip("The magnitude of jump force")]
     public float JumpForce = 5;
     [Tooltip("The maximum height when the player is judeged as grounded")]
-    public float GroundError = 0.2f;
+    public float OverLapCapsuleOffset = 0.2f;
+    [Tooltip("Minimal time between two jumps(Seconds)")]
+    public float MinimalDeltaTime = 0.1f;
 
     [Header("Movement Settings")]
     [Tooltip("The camera attached to the player.(used for getting direction)")]
@@ -18,11 +20,20 @@ public class MotionController : MonoBehaviour
     [Tooltip("Speed boost when LShift is pressed")]
     public float Boost = 3f;
 
+    //Those are variants related to ground detection
+    private CapsuleCollider CapsuleCollider;
+    private float LastJumpTime;
+
+    void Awake() {
+        CapsuleCollider = GetComponent<CapsuleCollider>();
+        LastJumpTime = Time.time;
+    }
     void Update() {
         // Jump
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetKeyDown(KeyCode.Space) && OnGround() && IsJumpValid()) {
             Rigidbody rigidbody;
             if (rigidbody = GetComponent<Rigidbody>()) {
+                rigidbody.velocity = new Vector3(rigidbody.velocity.x, 0, rigidbody.velocity.z);
                 rigidbody.AddForce(new Vector3(0, JumpForce, 0), ForceMode.Impulse);
             }
         }
@@ -45,7 +56,20 @@ public class MotionController : MonoBehaviour
         delta_pos *= Time.deltaTime;
         transform.position += delta_pos;
     }
-    public bool isGrounded() {
-        return Physics.Raycast(transform.position, -transform.up, GroundError);
+    bool OnGround() {
+        Vector3 bottom_center = transform.position 
+            - (CapsuleCollider.height / 2 + CapsuleCollider.radius) * new Vector3(0, 1, 0);
+        Vector3 top_center = transform.position 
+            - (CapsuleCollider.height / 2 + CapsuleCollider.radius) * new Vector3(0, 1, 0);
+        LayerMask ignore_mask = 1 << 9;
+        var colliders = Physics.OverlapCapsule(bottom_center, top_center,
+            CapsuleCollider.radius, ignore_mask);
+        if (colliders.Length != 0) { return true; }
+        else { return false; }
+    }
+    bool IsJumpValid() {
+        if(Time.time - LastJumpTime > MinimalDeltaTime) {
+            LastJumpTime = Time.time; return true;
+        } else { return false; }
     }
 }
