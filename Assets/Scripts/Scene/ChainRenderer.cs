@@ -28,14 +28,10 @@ public class ChainRenderer : MonoBehaviour
         // Refresh position and scale
         Vector3 StartPoint = ChainStartPoint.transform.position;
         transform.position = (EndPoint + StartPoint) / 2;
-        transform.localScale = 
-            new Vector3(Radius,(EndPoint - StartPoint).magnitude,Radius);
+        transform.localScale =
+            new Vector3(Radius, (EndPoint - StartPoint).magnitude / 2, Radius);
         // Refresh direction
         Vector3 dir = EndPoint - StartPoint;
-        //float angle_1 = Vector3.Angle(new Vector3(0, 1, 0), dir);
-        //float angle_2 = Vector3.Angle(new Vector3(), dir);
-        //transform.eulerAngles = new Vector3();
-        //transform.Rotate(transform.right, angle_1);
         float angle = Vector3.Angle(new Vector3(0, 1, 0), dir);
         Vector3 axis = Vector3.Cross(dir, new Vector3(0, 1, 0));
         transform.eulerAngles = new Vector3(0, 0, 0);
