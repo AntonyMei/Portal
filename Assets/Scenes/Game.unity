@@ -811,6 +811,54 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  PortalLowerBound: 5
+  PortalUpperBound: 10
+  LowerPortalMaterial: {fileID: 2100000, guid: 3445d6cd88c67424ca29dcfce6247f3b, type: 2}
+  UpperPortalMaterial: {fileID: 2100000, guid: 79372ed4440d4c94f966e88adf1f9a01, type: 2}
+  PortalPrefab: {fileID: 3591394948037817913, guid: b8e1233eaa6d2bb4cb25d9e351ad9b8c,
+    type: 3}
+  PortalDensity:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 10
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 300
+      value: 80
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1000
+      value: 200
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 5000
+      value: 10
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   AnchorLowerBound: 3
   AnchorUpperBound: 5
   NormalAnchorPrefab: {fileID: 8500478312517027259, guid: 7bf85c056fa3a00479743343ed8f56a5,

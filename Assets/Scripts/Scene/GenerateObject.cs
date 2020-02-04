@@ -6,18 +6,37 @@ using UnityEngine;
 
 public class GenerateObject : MonoBehaviour
 {
+
     [Header("Fracture Settings")]
     // Parameters of fixed fractures. Fractures are used as portals.
-    [Tooltip("The lower bound of fracture size")]
+    // This part is obselete. Use Portal settings instead.
+    [Tooltip("The lower bound of fracture size"), HideInInspector]
     public float FractureLowerBound = 5.0f;
-    [Tooltip("The upper bound of fracture size")]
+    [Tooltip("The upper bound of fracture size"), HideInInspector]
     public float FractureUpperBound = 20.0f;
-    [Tooltip("The material of fractures where its lower than the other")]
+    [Tooltip("The material of fractures where its lower than the other"), HideInInspector]
     public Material LowerFractureMaterial;
-    [Tooltip("The material of fractures where its higher than the other")]
+    [Tooltip("The material of fractures where its higher than the other"), HideInInspector]
     public Material UpperFractureMaterial;
-    [Tooltip("The density of fractures(Relative to height).")]
+    [Tooltip("The density of fractures(Relative to height)."), HideInInspector]
     public AnimationCurve FixedFractureDensity = new AnimationCurve(
+        new Keyframe(0, 10, 0, 0), new Keyframe(300, 80, 0, 0),
+        new Keyframe(1000, 200, 0, 0), new Keyframe(5000, 10, 0, 0));
+
+    [Header("Portal Settings")]
+    // Parameters of portals.
+    [Tooltip("The lower bound of fracture size")]
+    public float PortalLowerBound = 5.0f;
+    [Tooltip("The upper bound of fracture size")]
+    public float PortalUpperBound = 10.0f;
+    [Tooltip("The material of fractures where its lower than the other")]
+    public Material LowerPortalMaterial;
+    [Tooltip("The material of fractures where its higher than the other")]
+    public Material UpperPortalMaterial;
+    [Tooltip("Portal prefab")]
+    public GameObject PortalPrefab;
+    [Tooltip("The density of fractures(Relative to height).")]
+    public AnimationCurve PortalDensity = new AnimationCurve(
         new Keyframe(0, 10, 0, 0), new Keyframe(300, 80, 0, 0),
         new Keyframe(1000, 200, 0, 0), new Keyframe(5000, 10, 0, 0));
 
@@ -122,6 +141,7 @@ public class GenerateObject : MonoBehaviour
         frac.uv = uvs;
         return frac;
     }
+    [Obsolete("Do not call this function, use portal instead",true)]
     public GameObject GenerateFractures(Range x, Range y, Range z) {
         //Create the root GameObject
         GameObject root = new GameObject {
@@ -163,6 +183,51 @@ public class GenerateObject : MonoBehaviour
                 portal.Other = last;
                 var temp = last.GetComponent<Portal>();
                 temp.Other = frac; temp.RefreshColor();
+                portal.RefreshColor();
+            }
+        }
+        return root;
+    }
+
+    // Portal
+    public GameObject GeneratePortal(Range x, Range y, Range z) {
+        //Create the root GameObject
+        GameObject root = new GameObject {
+            name = $"X{(x.min % 100).ToString()}{(x.max % 100).ToString()}" +
+                   $"Y{(y.min % 100).ToString()}{(y.max % 100).ToString()}" +
+                   $"Z{(z.min % 100).ToString()}{(z.max % 100).ToString()}" +
+                   $"Portal"
+        };
+        //Generate Fractures
+        int portal_count = 
+            (int)PortalDensity.Evaluate(Min((y.min + y.max) / 2, 5000));
+        portal_count += portal_count % 2 == 0 ? 0 : 1;
+        GameObject last = null;
+        for (int i = 0; i < portal_count; i++) {
+            GameObject portal_obj = Instantiate(PortalPrefab);
+            portal_obj.name = $"{root.name}id{i.ToString()}";
+            portal_obj.tag = "Portal";
+            //Set transform
+            portal_obj.transform.position = GetRandomPos(x, y, z);
+            portal_obj.transform.rotation = GetRandomQuaternion();
+            portal_obj.transform.parent = root.transform;
+            float size_factor = PortalLowerBound
+                                + UnityEngine.Random.value
+                                * (PortalUpperBound - PortalLowerBound);
+            portal_obj.transform.localScale *= size_factor;
+            // Get the actual portal
+            GameObject actual_portal = portal_obj.transform.GetChild(1).gameObject;
+            // Set Portal
+            Portal portal = actual_portal.AddComponent<Portal>();
+            portal.LowerMaterial = LowerPortalMaterial;
+            portal.UpperMaterial = UpperPortalMaterial;
+            portal.isFixed = true;
+            if (i % 2 == 0) {
+                last = actual_portal;
+            } else {
+                portal.Other = last;
+                var temp = last.GetComponent<Portal>();
+                temp.Other = actual_portal; temp.RefreshColor();
                 portal.RefreshColor();
             }
         }
@@ -224,7 +289,7 @@ public class GenerateObject : MonoBehaviour
                                new Quaternion(),
                                root.transform);
             plane.name = $"{root.name}id{i.ToString()}";
-            plane.tag = "Plane";
+            plane.tag = "Plane"; plane.layer = 9;
             float size_factor = PlaneLowerBound
                                 + (UnityEngine.Random.value
                                 * (PlaneUpperBound - PlaneLowerBound));
@@ -234,7 +299,8 @@ public class GenerateObject : MonoBehaviour
     }
 
     private void Start() {
-        GenerateFractures(new Range(0, 500), new Range(0, 500), new Range(0, 500));
+        //GenerateFractures(new Range(0, 500), new Range(0, 500), new Range(0, 500));
+        GeneratePortal(new Range(0, 500), new Range(0, 500), new Range(0, 500));
         GenerateAnchor(new Range(0, 500), new Range(0, 500), new Range(0, 500));
         GeneratePlane(new Range(0, 500), new Range(0, 500), new Range(0, 500));
     }
