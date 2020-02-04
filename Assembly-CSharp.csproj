@@ -55,11 +55,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Imported\CursorsAndCrosshairs\CursorChanger.cs" />
      <Compile Include="Assets\Imported\Scripts\SimpleCameraController.cs" />
      <Compile Include="Assets\Imported\TutorialInfo\Scripts\Readme.cs" />
      <Compile Include="Assets\Scripts\Obselete\_MotionController.cs" />
      <Compile Include="Assets\Scripts\Player\CameraController.cs" />
+     <Compile Include="Assets\Scripts\Player\ChainController.cs" />
      <Compile Include="Assets\Scripts\Player\MotionController.cs" />
+     <Compile Include="Assets\Scripts\Scene\Chain.cs" />
      <Compile Include="Assets\Scripts\Scene\GenerateObject.cs" />
      <Compile Include="Assets\Scripts\Scene\Portal.cs" />
  <Reference Include="Unity.Timeline.Editor">
