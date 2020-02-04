@@ -20,28 +20,23 @@ public class ChainController : MonoBehaviour
     public float MaxChainLength = 300f;
     [Tooltip("The camera attached to the player, used as the origin of the ray")]
     public Camera PlayerCamera;
-    [Tooltip("The line renderer that randers the chain")]
-    public LineRenderer ChainRenderer;
+    [Tooltip("The gameobject that randers the chain")]
+    public ChainRenderer ChainRenderer;
 
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
     }
     void Update() {
-        // Detect objects
+        // Change cursor and ray
         RaycastHit hit_info;
         Ray ray = new Ray(PlayerCamera.transform.position, 
                           PlayerCamera.transform.forward);
         Physics.Raycast(ray, out hit_info);
-        //Debug.Log(hit_info.distance);
         if(hit_info.distance < MaxChainLength && hit_info.distance != 0) {
             if (Input.GetKeyDown(KeyCode.Mouse0)) {
                 CursorImage.texture = HitTexture;
-                ChainRenderer.enabled = true;
-                ChainRenderer.GetComponent<Chain>().ResetStartPoint();
-                ChainRenderer.SetPosition(1, hit_info.point);
+                ChainRenderer.ResetEnd(hit_info.point);
             } else { CursorImage.texture = DetectedTexture; }
         } else { CursorImage.texture = NormalTexture; }
-        // Cast an actual ray 
-
     }
 }
