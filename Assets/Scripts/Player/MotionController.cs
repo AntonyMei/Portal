@@ -33,7 +33,8 @@ public class MotionController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && OnGround() && IsJumpValid()) {
             Rigidbody rigidbody;
             if (rigidbody = GetComponent<Rigidbody>()) {
-                rigidbody.velocity = new Vector3(rigidbody.velocity.x, 0, rigidbody.velocity.z);
+                if(rigidbody.velocity.y < 0)
+                    rigidbody.velocity = new Vector3(rigidbody.velocity.x, 0, rigidbody.velocity.z);
                 rigidbody.AddForce(new Vector3(0, JumpForce, 0), ForceMode.Impulse);
             }
         }
