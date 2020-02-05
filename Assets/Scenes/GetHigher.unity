@@ -497,7 +497,7 @@ GameObject:
   - component: {fileID: 260033511}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1538,7 +1538,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 260033505}
   GenerateObject: {fileID: 1880158278}
-  MaxiumBlockCount: 5
+  MaxiumBlockCount: 3
   BlockSideLength: 300
 --- !u!1 &2011204166
 GameObject:
