@@ -98,7 +98,12 @@ public class SceneManager : MonoBehaviour
                             new GenerateObject.Range(y * BlockSideLength, (y + 1) * BlockSideLength),
                             new GenerateObject.Range((z - 250) * BlockSideLength, (z - 249) * BlockSideLength));
                         plane_root.transform.parent = local_root.transform;
-                        //
+                        GameObject trampoline_root = GenerateObject.GenerateTrampoline(
+                            new GenerateObject.Range((x - 250) * BlockSideLength, (x - 249) * BlockSideLength),
+                            new GenerateObject.Range(y * BlockSideLength, (y + 1) * BlockSideLength),
+                            new GenerateObject.Range((z - 250) * BlockSideLength, (z - 249) * BlockSideLength));
+                        trampoline_root.transform.parent = local_root.transform;
+                        // Save in map
                         RootMap[x, y, z] = local_root;
                     }
                 }

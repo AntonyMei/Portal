@@ -40,21 +40,29 @@ public class GenerateObject : MonoBehaviour
         new Keyframe(1000, 10, 0, 0), new Keyframe(5000, 2, 0, 0));
 
     [Header("Anchor Settings")]
-    // Parameters of fixed anchors. Anchors are ordinary objects players can step on.
+    // Parameters of fixed anchors. Anchors are ordinary objects players can attach ray to.
     [Tooltip("The lower bound of anchor size")]
     public float AnchorLowerBound = 3.0f;
     [Tooltip("The upper bound of anchor size")]
     public float AnchorUpperBound = 5.0f;
-    [Tooltip("Normal anchor prefab")]
-    public GameObject NormalAnchorPrefab;
-    [Tooltip("Target anchor prefab")]
-    public GameObject TargetAnchorPrefab;
-    [Tooltip("The percentage of target anchors"), Range(0f, 1.0f)]
-    public float TargetAnchorPercentage = 0.1f;
+    [Tooltip("Anchor prefab")]
+    public GameObject AnchorPrefab;
     [Tooltip("The density of fixed anchors(Relative to height).")]
     public AnimationCurve AnchorDensity = new AnimationCurve(
         new Keyframe(0, 100, 0, 0), new Keyframe(300, 60, 0, 0),
         new Keyframe(1000, 30, 0, 0), new Keyframe(5000, 10, 0, 0));
+
+    [Header("Trampoline Settings")]
+    [Tooltip("The lower bound of trampoline size")]
+    public float TrampolineLowerBound = 3.0f;
+    [Tooltip("The upper bound of trampoline size")]
+    public float TrampolineUpperBound = 5.0f;
+    [Tooltip("Trampoline prefab")]
+    public GameObject TrampolinePrefab;
+    [Tooltip("The density of fixed trampolines(Relative to height).")]
+    public AnimationCurve TrampolineDensity = new AnimationCurve(
+        new Keyframe(0, 10, 0, 0), new Keyframe(300, 6, 0, 0),
+        new Keyframe(1000, 3, 0, 0), new Keyframe(5000, 1, 0, 0));
 
     [Header("Plane Settings")]
     [Tooltip("The lower bound of plane size.")]
@@ -244,25 +252,43 @@ public class GenerateObject : MonoBehaviour
             (int)AnchorDensity.Evaluate(Min((y.max + y.min) / 2, 5000));
         for(int i = 0; i< fixed_anchor_count; i++) {
             GameObject anchor = null;
-            float val = UnityEngine.Random.value;
-            if(val <= TargetAnchorPercentage) {
-                anchor = Instantiate(TargetAnchorPrefab,
-                         GetRandomPos(x, y, z),
-                         GetRandomQuaternion(),
-                         root.transform);
-                anchor.tag = "TargetAnchor";
-            } else {
-                anchor = Instantiate(NormalAnchorPrefab,
-                         GetRandomPos(x, y, z),
-                         GetRandomQuaternion(),
-                         root.transform);
-                anchor.tag = "NormalAnchor";
-            }
+            anchor = Instantiate(AnchorPrefab, 
+                GetRandomPos(x, y, z), GetRandomQuaternion(), root.transform);
+            anchor.tag = "Anchor";
             anchor.name = $"{root.name}id{i.ToString()}";
             float size_factor = AnchorLowerBound
                                 + (UnityEngine.Random.value
                                 * (AnchorUpperBound - AnchorLowerBound));
             anchor.transform.localScale *= size_factor;
+        }
+        return root;
+    }
+
+    // Trampoline
+    public GameObject GenerateTrampoline(Range x, Range y, Range z) {
+        //Create the root GameObject
+        GameObject root = new GameObject {
+            name = $"X{(x.min % 500).ToString()}{(x.max % 500).ToString()}" +
+                   $"Y{(y.min % 500).ToString()}{(y.max % 500).ToString()}" +
+                   $"Z{(z.min % 500).ToString()}{(z.max % 500).ToString()}" +
+                   $"Trampoline"
+        };
+        //Generate anchor
+        int trampoline_count =
+            (int)TrampolineDensity.Evaluate(Min((y.max + y.min) / 2, 5000));
+        for (int i = 0; i < trampoline_count; i++) {
+            GameObject trampoline = Instantiate(TrampolinePrefab,
+                GetRandomPos(x, y, z), GetRandomQuaternion(), root.transform);
+            trampoline.tag = "Trampoline";
+            trampoline.name = $"{root.name}id{i.ToString()}";
+            float size_factor = TrampolineLowerBound
+                                + (UnityEngine.Random.value
+                                * (TrampolineUpperBound - TrampolineLowerBound));
+            trampoline.transform.localScale *= size_factor;
+            // Add Here
+            //
+            //
+            //
         }
         return root;
     }

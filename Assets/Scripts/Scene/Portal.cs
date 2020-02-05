@@ -18,11 +18,11 @@ public class Portal : MonoBehaviour
 
     [Header("Fracture Settings")]
     [Tooltip("The lower bound of fracture size")]
-    public float FractureLowerBound = 0.1f;
+    public float FractureLowerBound = 0.2f;
     [Tooltip("The upper bound of fracture size")]
-    public float FractureUpperBound = 0.5f;
+    public float FractureUpperBound = 1f;
     [Tooltip("The number of fractures")]
-    public int FractureCount = 50;
+    public int FractureCount = 100;
     [Tooltip("Duration of fractures")]
     public int FractureDuration = 10;
     [Tooltip("The magnitude of the force")]
@@ -92,7 +92,7 @@ public class Portal : MonoBehaviour
             // Physics
             Rigidbody rigidbody = frac.AddComponent<Rigidbody>();
             rigidbody.useGravity = false;
-            rigidbody.AddExplosionForce(ForceMagnitude,
+            rigidbody.AddExplosionForce(ForceMagnitude * breaked_object.transform.localScale.x,
                 breaked_object.transform.position, 15f);
         }
     }

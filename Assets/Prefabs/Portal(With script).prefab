@@ -352,9 +352,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Other: {fileID: 0}
-  UpperMaterial: {fileID: 0}
-  LowerMaterial: {fileID: 0}
-  isFixed: 1
+  UpperMaterial: {fileID: 2100000, guid: 79372ed4440d4c94f966e88adf1f9a01, type: 2}
+  LowerMaterial: {fileID: 2100000, guid: 3445d6cd88c67424ca29dcfce6247f3b, type: 2}
+  isFixed: 0
+  FractureLowerBound: 0.2
+  FractureUpperBound: 1
+  FractureCount: 100
+  FractureDuration: 10
+  ForceMagnitude: 100
 --- !u!1 &6964917959041931536
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,7 +370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2410481511936351036}
   m_Layer: 0
-  m_Name: Portal 1
+  m_Name: Portal(With script)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

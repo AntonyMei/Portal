@@ -11,7 +11,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{6CDB4719-1D28-38FF-BF92-A07FF7EAE25F}</ProjectGuid>
+    <ProjectGuid>{863713BA-49CD-D764-DECD-5EAC4B35150D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -57,64 +57,64 @@
   <ItemGroup>
      <Compile Include="Assets\Imported\TutorialInfo\Scripts\Editor\ReadmeEditor.cs" />
  <Reference Include="UnityEditor.TestRunner">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.TestRunner">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline.Editor">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VSCode.Editor">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.RenderPipelines.Core.Editor">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.RenderPipelines.Core.Runtime">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VisualEffectGraph.Runtime">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/ScriptAssemblies/Unity.VisualEffectGraph.Runtime.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/ScriptAssemblies/Unity.VisualEffectGraph.Runtime.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.RenderPipelines.HighDefinition.Runtime">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/ScriptAssemblies/Unity.RenderPipelines.HighDefinition.Runtime.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/ScriptAssemblies/Unity.RenderPipelines.HighDefinition.Runtime.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Rider.Editor">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/ScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/ScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VisualEffectGraph.Editor">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/ScriptAssemblies/Unity.VisualEffectGraph.Editor.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/ScriptAssemblies/Unity.VisualEffectGraph.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.ShaderGraph.Editor">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.RenderPipelines.HighDefinition.Editor">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/ScriptAssemblies/Unity.RenderPipelines.HighDefinition.Editor.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/ScriptAssemblies/Unity.RenderPipelines.HighDefinition.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/ScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/ScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>D:/Unity2019.2.18/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -315,10 +315,10 @@
  <HintPath>D:/Unity2019.2.18/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.UWP.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="ICSharpCode.NRefactory">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/PackageCache/com.unity.render-pipelines.high-definition@6.9.0-preview/Editor/Core/ShaderGenerator/ICSharpCode.NRefactory.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/PackageCache/com.unity.render-pipelines.high-definition@6.9.0-preview/Editor/Core/ShaderGenerator/ICSharpCode.NRefactory.dll</HintPath>
  </Reference>
  <Reference Include="nunit.framework">
- <HintPath>I:/_T.H.U/软件设计大赛/Test/Project/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
+ <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>D:/Unity2019.2.18/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -677,7 +677,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{5B9FF267-005F-A3BF-219E-FEAE2D8C894F}</Project>
+      <Project>{7B42D6E2-1FD1-E70C-1A7B-36A1D72E2C01}</Project>
       <Name>Assembly-CSharp</Name>
     </ProjectReference>
   </ItemGroup>
