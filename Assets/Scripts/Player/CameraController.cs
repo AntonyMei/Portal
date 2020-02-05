@@ -33,7 +33,9 @@ public class CameraController : MonoBehaviour {
     [Tooltip("Whether or not to invert our Y axis for mouse input to rotation.")]
     public bool invertY = false;
 
-    void OnEnable() {
+    void OnEnable() { RefershCameraRotation(); }
+
+    public void RefershCameraRotation() {
         m_TargetCameraState.SetFromTransform(transform);
         m_InterpolatingCameraState.SetFromTransform(transform);
     }

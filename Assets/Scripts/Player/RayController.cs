@@ -33,9 +33,11 @@ public class RayController : MonoBehaviour
                           PlayerCamera.transform.forward);
         Physics.Raycast(ray, out hit_info);
         if(hit_info.distance < MaxRayLength && hit_info.distance != 0) {
+            if (Input.GetKeyDown(KeyCode.Mouse0)) {
+                RayRenderer.ResetEnd(hit_info.point);
+            }
             if (Input.GetKey(KeyCode.Mouse0)) {
                 CursorImage.texture = HitTexture;
-                RayRenderer.ResetEnd(hit_info.point);
             } else { CursorImage.texture = DetectedTexture; }
         } else { CursorImage.texture = NormalTexture; }
     }
