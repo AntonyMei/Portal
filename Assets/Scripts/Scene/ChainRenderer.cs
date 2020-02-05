@@ -5,7 +5,7 @@ using UnityEngine;
 public class ChainRenderer : MonoBehaviour
 {
     [Tooltip("The minimal length of the chain")]
-    public float MinLength = 10f;
+    public float MinLength = 3f;
     [Tooltip("The radius of the chain")]
     public float Radius = 0.5f;
     [Tooltip("The start point of the chain")]
@@ -16,13 +16,13 @@ public class ChainRenderer : MonoBehaviour
     void Update() {
         Refresh();
         Vector3 ChainLength = EndPoint - ChainStartPoint.transform.position;
-        if(ChainLength.magnitude < MinLength) {
+        if(ChainLength.magnitude < MinLength || Input.GetKeyUp(KeyCode.Mouse0)) {
             GetComponent<MeshRenderer>().enabled = false;
         }
     }
     public void ResetEnd(Vector3 end_point) {
+        EndPoint = end_point; Refresh();
         GetComponent<MeshRenderer>().enabled = true;
-        EndPoint = end_point; 
     }
     public void Refresh() {
         // Refresh position and scale

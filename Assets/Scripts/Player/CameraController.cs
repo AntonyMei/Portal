@@ -39,6 +39,8 @@ public class CameraController : MonoBehaviour {
     }
 
     void Update() {
+        // Disable Rotation when Mouse0 is pressed
+        if(Input.GetKey(KeyCode.Mouse0)) { return; }
         // Rotation
         var mouseMovement = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y") * (invertY ? 1 : -1));
         var mouseSensitivityFactor = mouseSensitivityCurve.Evaluate(mouseMovement.magnitude);

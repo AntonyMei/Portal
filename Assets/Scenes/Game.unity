@@ -507,7 +507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cf79f50f91af2c43aa13940b221aa0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MinLength: 10
+  MinLength: 3
   Radius: 0.001
   ChainStartPoint: {fileID: 388356584}
 --- !u!23 &1065254413
