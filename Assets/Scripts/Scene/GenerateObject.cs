@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class GenerateObject : MonoBehaviour
 {
-
     [Header("Fracture Settings")]
     // Parameters of fixed fractures. Fractures are used as portals.
     // This part is obselete. Use Portal settings instead.
@@ -20,7 +19,7 @@ public class GenerateObject : MonoBehaviour
     public Material UpperFractureMaterial;
     [Tooltip("The density of fractures(Relative to height)."), HideInInspector]
     public AnimationCurve FixedFractureDensity = new AnimationCurve(
-        new Keyframe(0, 10, 0, 0), new Keyframe(300, 80, 0, 0),
+        new Keyframe(0, 3, 0, 0), new Keyframe(300, 40, 0, 0),
         new Keyframe(1000, 200, 0, 0), new Keyframe(5000, 10, 0, 0));
 
     [Header("Portal Settings")]
@@ -37,8 +36,8 @@ public class GenerateObject : MonoBehaviour
     public GameObject PortalPrefab;
     [Tooltip("The density of fractures(Relative to height).")]
     public AnimationCurve PortalDensity = new AnimationCurve(
-        new Keyframe(0, 10, 0, 0), new Keyframe(300, 80, 0, 0),
-        new Keyframe(1000, 200, 0, 0), new Keyframe(5000, 10, 0, 0));
+        new Keyframe(0, 2, 0, 0), new Keyframe(300, 6, 0, 0),
+        new Keyframe(1000, 10, 0, 0), new Keyframe(5000, 2, 0, 0));
 
     [Header("Anchor Settings")]
     // Parameters of fixed anchors. Anchors are ordinary objects players can step on.
@@ -54,23 +53,20 @@ public class GenerateObject : MonoBehaviour
     public float TargetAnchorPercentage = 0.1f;
     [Tooltip("The density of fixed anchors(Relative to height).")]
     public AnimationCurve AnchorDensity = new AnimationCurve(
-        new Keyframe(0, 200, 0, 0), new Keyframe(300, 100, 0, 0),
-        new Keyframe(1000, 50, 0, 0), new Keyframe(5000, 10, 0, 0));
+        new Keyframe(0, 100, 0, 0), new Keyframe(300, 60, 0, 0),
+        new Keyframe(1000, 30, 0, 0), new Keyframe(5000, 10, 0, 0));
 
     [Header("Plane Settings")]
     [Tooltip("The lower bound of plane size.")]
-    public float PlaneLowerBound = 3f;
+    public float PlaneLowerBound = 1f;
     [Tooltip("The upper bound of plane size.")]
-    public float PlaneUpperBound = 10f;
+    public float PlaneUpperBound = 5f;
     [Tooltip("The prefab of a plane")]
     public GameObject PlanePrefab;
     [Tooltip("The density of fixed planes(Relative to height).")]
     public AnimationCurve PlaneDensity = new AnimationCurve(
-        new Keyframe(0, 20, 0, 0), new Keyframe(300, 10, 0, 0),
-        new Keyframe(1000, 5, 0, 0), new Keyframe(5000, 2, 0, 0));
-
-    //100*100*100 per block
-    public bool[,,] HasGenerated;
+        new Keyframe(0, 3, 0, 0), new Keyframe(300, 6, 0, 0),
+        new Keyframe(1000, 2, 0, 0), new Keyframe(5000, 0, 0, 0));
 
     //Math functions
     public class Range {
@@ -145,9 +141,9 @@ public class GenerateObject : MonoBehaviour
     public GameObject GenerateFractures(Range x, Range y, Range z) {
         //Create the root GameObject
         GameObject root = new GameObject {
-            name = $"X{(x.min % 100).ToString()}{(x.max % 100).ToString()}" +
-                   $"Y{(y.min % 100).ToString()}{(y.max % 100).ToString()}" +
-                   $"Z{(z.min % 100).ToString()}{(z.max % 100).ToString()}" +
+            name = $"X{(x.min % 500).ToString()}{(x.max % 500).ToString()}" +
+                   $"Y{(y.min % 500).ToString()}{(y.max % 500).ToString()}" +
+                   $"Z{(z.min % 500).ToString()}{(z.max % 500).ToString()}" +
                    $"Frac"
         };
         //Generate Fractures
@@ -193,9 +189,9 @@ public class GenerateObject : MonoBehaviour
     public GameObject GeneratePortal(Range x, Range y, Range z) {
         //Create the root GameObject
         GameObject root = new GameObject {
-            name = $"X{(x.min % 100).ToString()}{(x.max % 100).ToString()}" +
-                   $"Y{(y.min % 100).ToString()}{(y.max % 100).ToString()}" +
-                   $"Z{(z.min % 100).ToString()}{(z.max % 100).ToString()}" +
+            name = $"X{(x.min % 500).ToString()}{(x.max % 500).ToString()}" +
+                   $"Y{(y.min % 500).ToString()}{(y.max % 500).ToString()}" +
+                   $"Z{(z.min % 500).ToString()}{(z.max % 500).ToString()}" +
                    $"Portal"
         };
         //Generate Fractures
@@ -238,9 +234,9 @@ public class GenerateObject : MonoBehaviour
     public GameObject GenerateAnchor(Range x, Range y, Range z) {
         //Create the root GameObject
         GameObject root = new GameObject {
-            name = $"X{(x.min % 100).ToString()}{(x.max % 100).ToString()}" +
-                   $"Y{(y.min % 100).ToString()}{(y.max % 100).ToString()}" +
-                   $"Z{(z.min % 100).ToString()}{(z.max % 100).ToString()}" +
+            name = $"X{(x.min % 500).ToString()}{(x.max % 500).ToString()}" +
+                   $"Y{(y.min % 500).ToString()}{(y.max % 500).ToString()}" +
+                   $"Z{(z.min % 500).ToString()}{(z.max % 500).ToString()}" +
                    $"Anchor"
         };
         //Generate anchor
@@ -275,9 +271,9 @@ public class GenerateObject : MonoBehaviour
     public GameObject GeneratePlane(Range x, Range y, Range z) {
         //Create the root GameObject
         GameObject root = new GameObject {
-            name = $"X{(x.min % 100).ToString()}{(x.max % 100).ToString()}" +
-                   $"Y{(y.min % 100).ToString()}{(y.max % 100).ToString()}" +
-                   $"Z{(z.min % 100).ToString()}{(z.max % 100).ToString()}" +
+            name = $"X{(x.min % 500).ToString()}{(x.max % 500).ToString()}" +
+                   $"Y{(y.min % 500).ToString()}{(y.max % 500).ToString()}" +
+                   $"Z{(z.min % 500).ToString()}{(z.max % 500).ToString()}" +
                    $"Plane"
         };
         //Generate plane
@@ -300,8 +296,9 @@ public class GenerateObject : MonoBehaviour
 
     private void Start() {
         //GenerateFractures(new Range(0, 500), new Range(0, 500), new Range(0, 500));
-        GeneratePortal(new Range(0, 500), new Range(0, 500), new Range(0, 500));
-        GenerateAnchor(new Range(0, 500), new Range(0, 500), new Range(0, 500));
-        GeneratePlane(new Range(0, 500), new Range(0, 500), new Range(0, 500));
+        //UnityEngine.Random.seed = 1;
+        //GeneratePortal(new Range(0, 500), new Range(0, 500), new Range(0, 500));
+        //GenerateAnchor(new Range(0, 500), new Range(0, 500), new Range(0, 500));
+        //GeneratePlane(new Range(0, 500), new Range(0, 500), new Range(0, 500));
     }
 }

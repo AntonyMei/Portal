@@ -1,10 +1,13 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - AdditionalGravity
     - CameraController
-    - ChainController
     - GenerateObject
     - MotionController
+    - RayController
+    - RayRenderer
+    - SceneManager
     - UnityTemplateProjects.SimpleCameraController
     Unity.RenderPipelines.Core.Runtime.dll:
     - UnityEngine.Rendering.Volume
@@ -69,13 +72,14 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Image
     - UnityEngine.UI.LayoutElement
     - UnityEngine.UI.Mask
+    - UnityEngine.UI.RawImage
     - UnityEngine.UI.ScrollRect
     - UnityEngine.UI.Scrollbar
     - UnityEngine.UI.Text
     - UnityEngine.UI.Toggle
     - UnityEngine.UI.VerticalLayoutGroup
   sceneClasses:
-    Assets/Scenes/Game.unity:
+    Assets/Scenes/GetHigher.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -95,8 +99,6 @@ ScriptsOnlyBuild:
     - Class: 48
       Script: {instanceID: 0}
     - Class: 54
-      Script: {instanceID: 0}
-    - Class: 58
       Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
@@ -131,101 +133,109 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10654}
     - Class: 114
-      Script: {instanceID: 10710}
+      Script: {instanceID: 10706}
     - Class: 114
-      Script: {instanceID: 10768}
+      Script: {instanceID: 10712}
     - Class: 114
-      Script: {instanceID: 11002}
+      Script: {instanceID: 10770}
     - Class: 114
-      Script: {instanceID: 11134}
+      Script: {instanceID: 11004}
     - Class: 114
-      Script: {instanceID: 11218}
+      Script: {instanceID: 11136}
     - Class: 114
-      Script: {instanceID: 11510}
+      Script: {instanceID: 11220}
     - Class: 114
-      Script: {instanceID: 11718}
+      Script: {instanceID: 11512}
     - Class: 114
-      Script: {instanceID: 11756}
+      Script: {instanceID: 11720}
     - Class: 114
-      Script: {instanceID: 11806}
+      Script: {instanceID: 11758}
     - Class: 114
-      Script: {instanceID: 11876}
+      Script: {instanceID: 11808}
     - Class: 114
-      Script: {instanceID: 11884}
+      Script: {instanceID: 11878}
     - Class: 114
-      Script: {instanceID: 11936}
+      Script: {instanceID: 11886}
     - Class: 114
-      Script: {instanceID: 11988}
+      Script: {instanceID: 11938}
     - Class: 114
-      Script: {instanceID: 12008}
+      Script: {instanceID: 11990}
     - Class: 114
-      Script: {instanceID: 12034}
+      Script: {instanceID: 12010}
     - Class: 114
-      Script: {instanceID: 12274}
+      Script: {instanceID: 12036}
     - Class: 114
-      Script: {instanceID: 12320}
+      Script: {instanceID: 12276}
     - Class: 114
-      Script: {instanceID: 12356}
+      Script: {instanceID: 12322}
     - Class: 114
-      Script: {instanceID: 12384}
+      Script: {instanceID: 12358}
     - Class: 114
-      Script: {instanceID: 12424}
+      Script: {instanceID: 12386}
     - Class: 114
-      Script: {instanceID: 12560}
+      Script: {instanceID: 12398}
     - Class: 114
-      Script: {instanceID: 12758}
+      Script: {instanceID: 12426}
     - Class: 114
-      Script: {instanceID: 12850}
+      Script: {instanceID: 12562}
     - Class: 114
-      Script: {instanceID: 12872}
+      Script: {instanceID: 12760}
     - Class: 114
-      Script: {instanceID: 12946}
+      Script: {instanceID: 12852}
     - Class: 114
-      Script: {instanceID: 13028}
+      Script: {instanceID: 12874}
     - Class: 114
-      Script: {instanceID: 13070}
+      Script: {instanceID: 12948}
     - Class: 114
-      Script: {instanceID: 13080}
+      Script: {instanceID: 13030}
     - Class: 114
-      Script: {instanceID: 13428}
+      Script: {instanceID: 13072}
     - Class: 114
-      Script: {instanceID: 13442}
+      Script: {instanceID: 13082}
     - Class: 114
-      Script: {instanceID: 13458}
+      Script: {instanceID: 13430}
     - Class: 114
-      Script: {instanceID: 13522}
+      Script: {instanceID: 13444}
+    - Class: 114
+      Script: {instanceID: 13460}
     - Class: 114
       Script: {instanceID: 13524}
     - Class: 114
-      Script: {instanceID: 13574}
+      Script: {instanceID: 13526}
     - Class: 114
-      Script: {instanceID: 13640}
+      Script: {instanceID: 13576}
     - Class: 114
-      Script: {instanceID: 13846}
+      Script: {instanceID: 13642}
     - Class: 114
-      Script: {instanceID: 14044}
+      Script: {instanceID: 13850}
     - Class: 114
-      Script: {instanceID: 14104}
+      Script: {instanceID: 13980}
     - Class: 114
-      Script: {instanceID: 14348}
+      Script: {instanceID: 14050}
     - Class: 114
-      Script: {instanceID: 14364}
+      Script: {instanceID: 14110}
     - Class: 114
-      Script: {instanceID: 14366}
+      Script: {instanceID: 14354}
     - Class: 114
-      Script: {instanceID: 14374}
+      Script: {instanceID: 14370}
     - Class: 114
-      Script: {instanceID: 14410}
+      Script: {instanceID: 14372}
     - Class: 114
-      Script: {instanceID: 14434}
+      Script: {instanceID: 14380}
     - Class: 114
-      Script: {instanceID: 14442}
+      Script: {instanceID: 14416}
     - Class: 114
-      Script: {instanceID: 14592}
+      Script: {instanceID: 14440}
+    - Class: 114
+      Script: {instanceID: 14448}
     - Class: 114
       Script: {instanceID: 14598}
     - Class: 114
-      Script: {instanceID: 19542}
+      Script: {instanceID: 14604}
+    - Class: 114
+      Script: {instanceID: 21052}
+    - Class: 114
+      Script: {instanceID: 23964}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -475,6 +485,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.RenderPipelines.HighDefinition.Runtime.dll
     namespaceName: UnityEngine.Experimental.Rendering.HDPipeline
     className: SplitToning
+  - hash:
+      serializedVersion: 2
+      Hash: d9e52693c11b73224606ee947bb4897d
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: RayRenderer
   - hash:
       serializedVersion: 2
       Hash: 0dbc3be398b4869a5c8d0d8481ee402c
@@ -1137,6 +1153,12 @@ ScriptsOnlyBuild:
     className: VFXInputButtonBinder
   - hash:
       serializedVersion: 2
+      Hash: 5994f14a0b41e9f98e505de0b332c804
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CursorChanger
+  - hash:
+      serializedVersion: 2
       Hash: ead23d96e3355c4f6368f3b116c422fb
     assemblyName: Unity.RenderPipelines.HighDefinition.Runtime.dll
     namespaceName: UnityEngine.Experimental.Rendering.HDPipeline
@@ -1195,6 +1217,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualEffectGraph.Runtime.dll
     namespaceName: UnityEngine.Experimental.VFX.Utility
     className: VFXMouseEventBinder
+  - hash:
+      serializedVersion: 2
+      Hash: b1d530568640ff892567a9428471d9bb
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: RayController
   - hash:
       serializedVersion: 2
       Hash: 93d3fce2b1a3b2bf027add78898a10f1
@@ -1419,11 +1447,17 @@ ScriptsOnlyBuild:
     className: VFXUISliderBinder
   - hash:
       serializedVersion: 2
-      Hash: 374c325bb84adaccd25a64f4d1912a80
+      Hash: 35a6a53b024ba3e3a66949c9988dab52
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: ChainController
+    className: AdditionalGravity
+  - hash:
+      serializedVersion: 2
+      Hash: 070f74f5bec7da2dbed08cf289519bae
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SceneManager
   platform: 19
   scenePathNames:
-  - Assets/Scenes/Game.unity
-  playerPath: "I:/_T.H.U/\u8F6F\u4EF6\u8BBE\u8BA1\u5927\u8D5B/Test/Project/Bin/Project.exe"
+  - Assets/Scenes/GetHigher.unity
+  playerPath: "I:/_T.H.U/\u8F6F\u4EF6\u8BBE\u8BA1\u5927\u8D5B/Test/Project/Debug/Project.exe"
