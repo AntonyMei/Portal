@@ -150,7 +150,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 13245800}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cd580ec062d8f543af5f5b6cfc0d45b, type: 3}
+  m_Script: {fileID: 11500000, guid: 22296573b23f7384e9b2c368cfd5114f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivityCurve:
@@ -492,9 +492,9 @@ GameObject:
   - component: {fileID: 260033510}
   - component: {fileID: 260033509}
   - component: {fileID: 260033508}
+  - component: {fileID: 260033511}
   - component: {fileID: 260033507}
   - component: {fileID: 260033506}
-  - component: {fileID: 260033511}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -511,7 +511,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 260033505}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c1485eddd12ef44596f164485b0a3c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 327e83ff3f7920e41bb58195d3af3e4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   NormalTexture: {fileID: 2800000, guid: 31dd982f52e5fa5468c4c5dcdea24fb0, type: 3}
@@ -530,12 +530,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 260033505}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21e2ed2c78bcccd4fa5a347d7b8738bc, type: 3}
+  m_Script: {fileID: 11500000, guid: 4dd8bceba150ea048b03a25f2f51b9a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   JumpForce: 15
   OverLapCapsuleOffset: 0.2
-  MinimalDeltaTime: 0.2
+  MinimalDeltaTime: 0.1
   PlayerCamera: {fileID: 13245805}
   NormalSpeed: 10
   Boost: 3
@@ -576,7 +576,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 260033505}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.76604444, z: 0, w: 0.64278764}
   m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -585,7 +585,7 @@ Transform:
   - {fileID: 419879879}
   m_Father: {fileID: 0}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 100, z: 0}
 --- !u!114 &260033511
 MonoBehaviour:
   m_ObjectHideFlags: 0

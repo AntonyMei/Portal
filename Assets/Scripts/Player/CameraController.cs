@@ -30,10 +30,19 @@ public class CameraController : MonoBehaviour {
     [Tooltip("Time it takes to interpolate camera rotation 99% of the way to the target."), Range(0.001f, 1f)]
     public float rotationLerpTime = 0.01f;
 
+    [Tooltip("The maximum angle of elevation")]
+    public float MaxElevation = 90f;
+
+    [Tooltip("The maximum angle of depression")]
+    public float MaxDepression = 75f;
+
     [Tooltip("Whether or not to invert our Y axis for mouse input to rotation.")]
     public bool invertY = false;
 
-    void OnEnable() { RefershCameraRotation(); }
+    void OnEnable() { 
+        RefershCameraRotation();
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
     public void RefershCameraRotation() {
         m_TargetCameraState.SetFromTransform(transform);
@@ -41,13 +50,16 @@ public class CameraController : MonoBehaviour {
     }
 
     void Update() {
-        // Disable Rotation when Mouse0 is pressed
-        if(Input.GetKey(KeyCode.Mouse0)) { return; }
         // Rotation
         var mouseMovement = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y") * (invertY ? 1 : -1));
         var mouseSensitivityFactor = mouseSensitivityCurve.Evaluate(mouseMovement.magnitude);
         m_TargetCameraState.yaw += mouseMovement.x * mouseSensitivityFactor;
         m_TargetCameraState.pitch += mouseMovement.y * mouseSensitivityFactor;
+        // Add x-axis constraints
+        m_TargetCameraState.pitch = 
+            m_TargetCameraState.pitch > MaxDepression ? MaxDepression : m_TargetCameraState.pitch;
+        m_TargetCameraState.pitch =
+            m_TargetCameraState.pitch < -MaxElevation ? -MaxElevation : m_TargetCameraState.pitch;
         // Framerate-independent interpolation
         // Calculate the lerp amount, such that we get 99% of the way to our target in the specified time
         var rotationLerpPct = 1f - Mathf.Exp((Mathf.Log(1f - 0.99f) / rotationLerpTime) * Time.deltaTime);
