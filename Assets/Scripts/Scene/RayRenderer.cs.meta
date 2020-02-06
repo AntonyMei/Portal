@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 4553b48b9f7002b4dbab46d47c5e28e4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Start: {instanceID: 0}
+  - End: {instanceID: 0}
+  - RayMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  - MeshRenderer: {instanceID: 0}
+  - MeshFilter: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

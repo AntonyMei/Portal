@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 193.53578, g: 274.03314, b: 435.31836, a: 1}
+  m_IndirectSpecularColor: {r: 194.13612, g: 274.83295, b: 436.35754, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -127,6 +127,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1162363070}
     m_Modifications:
+    - target: {fileID: 8500478312517027256, guid: 7bf85c056fa3a00479743343ed8f56a5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -3033667219593020291, guid: 13346a944f7ca824d880f41e289254ab,
+        type: 3}
     - target: {fileID: 8500478312517027258, guid: 7bf85c056fa3a00479743343ed8f56a5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -207,6 +213,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1162363070}
     m_Modifications:
+    - target: {fileID: 8500478312517027256, guid: 7bf85c056fa3a00479743343ed8f56a5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -3033667219593020291, guid: 13346a944f7ca824d880f41e289254ab,
+        type: 3}
     - target: {fileID: 8500478312517027258, guid: 7bf85c056fa3a00479743343ed8f56a5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -287,6 +299,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1162363070}
     m_Modifications:
+    - target: {fileID: 8500478312517027256, guid: 7bf85c056fa3a00479743343ed8f56a5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -3033667219593020291, guid: 13346a944f7ca824d880f41e289254ab,
+        type: 3}
     - target: {fileID: 8500478312517027258, guid: 7bf85c056fa3a00479743343ed8f56a5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -477,10 +495,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1162363070}
     m_Modifications:
+    - target: {fileID: 8500478312517027256, guid: 7bf85c056fa3a00479743343ed8f56a5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -3033667219593020291, guid: 13346a944f7ca824d880f41e289254ab,
+        type: 3}
     - target: {fileID: 8500478312517027258, guid: 7bf85c056fa3a00479743343ed8f56a5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.039838
+      value: 10.16
       objectReference: {fileID: 0}
     - target: {fileID: 8500478312517027258, guid: 7bf85c056fa3a00479743343ed8f56a5,
         type: 3}
@@ -490,7 +514,7 @@ PrefabInstance:
     - target: {fileID: 8500478312517027258, guid: 7bf85c056fa3a00479743343ed8f56a5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.3619144
+      value: -1.78
       objectReference: {fileID: 0}
     - target: {fileID: 8500478312517027258, guid: 7bf85c056fa3a00479743343ed8f56a5,
         type: 3}
@@ -557,6 +581,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1162363070}
     m_Modifications:
+    - target: {fileID: 8500478312517027256, guid: 7bf85c056fa3a00479743343ed8f56a5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -3033667219593020291, guid: 13346a944f7ca824d880f41e289254ab,
+        type: 3}
     - target: {fileID: 8500478312517027258, guid: 7bf85c056fa3a00479743343ed8f56a5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -822,6 +852,7 @@ GameObject:
   - component: {fileID: 1954851986516179204}
   - component: {fileID: 1954851986516179203}
   - component: {fileID: 1954851986516179208}
+  - component: {fileID: 1954851986516179209}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -928,6 +959,28 @@ MonoBehaviour:
   PlayerCamera: {fileID: 1954851986628587406}
   RayRenderer: {fileID: 1954851986750466337}
   RayStartIndicator: {fileID: 1954851985515464343}
+--- !u!114 &1954851986516179209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954851986516179202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67dfa5945dbfb1249b598bface71716b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NormalAnchorMaterial: {fileID: 2100000, guid: eb5fb4f927be24a43930250f0668e3b0,
+    type: 2}
+  ActiveAnchorMaterial: {fileID: 2100000, guid: 7af690447f99d1e4ebfa9811cbfd8058,
+    type: 2}
+  RayMaterial: {fileID: 2100000, guid: cbb58502fc450a545b1de4dad53dbe40, type: 2}
+  RayMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  Radius: 0.1
+  AidedAimingSensitivity: 20
+  RayController: {fileID: 1954851986516179208}
+  PlayerCamera: {fileID: 1954851986628587406}
 --- !u!223 &1954851986599926745
 Canvas:
   m_ObjectHideFlags: 0
@@ -1244,8 +1297,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Radius: 0.0009
+  UseGameObjectAsEndpoint: 0
+  Start: {fileID: 0}
+  End: {fileID: 0}
   StartPoint: {x: 0, y: 0, z: 0}
   EndPoint: {x: 0, y: 0, z: 0}
+  MeshRenderer: {fileID: 0}
+  MeshFilter: {fileID: 0}
 --- !u!4 &1954851986750466340
 Transform:
   m_ObjectHideFlags: 0
