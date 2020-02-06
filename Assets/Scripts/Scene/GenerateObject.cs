@@ -180,7 +180,7 @@ public class GenerateObject : MonoBehaviour
             Portal portal = frac.AddComponent<Portal>();
             portal.LowerMaterial = LowerFractureMaterial;
             portal.UpperMaterial = UpperFractureMaterial;
-            portal.isFixed = true;
+            portal.isStatic = true;
             if(i % 2 == 0) {
                 last = frac;
             } else {
@@ -225,7 +225,7 @@ public class GenerateObject : MonoBehaviour
             Portal portal = actual_portal.AddComponent<Portal>();
             portal.LowerMaterial = LowerPortalMaterial;
             portal.UpperMaterial = UpperPortalMaterial;
-            portal.isFixed = true;
+            portal.isStatic = true;
             if (i % 2 == 0) {
                 last = actual_portal;
             } else {

@@ -14,7 +14,7 @@ public class Portal : MonoBehaviour
     public Material LowerMaterial;
     [Tooltip("If toggled, the portal's color will not be refreshed automatically every frame." +
         "i.e. must call RefreshColor() manually")]
-    public bool isFixed = true;
+    public bool isStatic = true;
 
     [Header("Fracture Settings")]
     [Tooltip("The lower bound of fracture size")]
@@ -28,10 +28,10 @@ public class Portal : MonoBehaviour
     [Tooltip("The magnitude of the force")]
     public float ForceMagnitude = 100f;
 
-    private bool HasEntered = false;
+    private bool HasPlayerEntered = false;
 
     void Update() {
-        if (!isFixed) {
+        if (!isStatic) {
             MeshRenderer renderer = GetComponent<MeshRenderer>();
             if(transform.position.y < Other.transform.position.y) {
                 renderer.material = LowerMaterial;
@@ -97,8 +97,8 @@ public class Portal : MonoBehaviour
         }
     }
     public void OnCollisionEnter(Collision collision) {
-        if (HasEntered) return; HasEntered = true;
         if(collision.gameObject.tag == "Player" || true) {
+            if (HasPlayerEntered) return; HasPlayerEntered = true;
             // Translate
             collision.gameObject.transform.position = Other.transform.position;
             GenerateFractures(gameObject);
