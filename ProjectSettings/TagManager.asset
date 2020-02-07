@@ -9,6 +9,7 @@ TagManager:
   - Portal
   - Anchor
   - Trampoline
+  - Mirror
   layers:
   - Default
   - TransparentFX

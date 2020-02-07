@@ -34,6 +34,14 @@ public class ConnectionController : MonoBehaviour
     private Stack<GameObject> ray_list = new Stack<GameObject>();
     private GameObject ray_root;
 
+    public bool IsFirstAnchorSet() {
+        return is_first_anchor_set;
+    }
+    /// <returns> The first anchor or null </returns>
+    public GameObject GetFirstAnchor() {
+        return first_anchor;
+    }
+
     void Start() {
         ray_root = new GameObject("RayRoot");
     }
@@ -92,29 +100,36 @@ public class ConnectionController : MonoBehaviour
         }
         // React to E, it removes the last ray
         if (Input.GetKeyDown(KeyCode.E) && ray_list.Count != 0) {
-            // Remove ray from lists
-            GameObject ray_obj = ray_list.Pop();
-            RayRenderer ray_renderer = ray_obj.GetComponent<RayRenderer>();
-            Anchor first_anchor_script = ray_renderer.Start.GetComponent<Anchor>();
-            Anchor second_anchor_script = ray_renderer.End.GetComponent<Anchor>();
-            string ray_id_1 = $"{ray_renderer.Start.name}to{ray_renderer.End.name}";
-            string ray_id_2 = $"{ray_renderer.End.name}to{ray_renderer.Start.name}";
-            if (first_anchor_script.RayList.Contains(ray_id_1)) { 
-                first_anchor_script.RayList.Remove(ray_id_1);
+            if (!is_first_anchor_set) {
+                // Remove ray from lists
+                GameObject ray_obj = ray_list.Pop();
+                RayRenderer ray_renderer = ray_obj.GetComponent<RayRenderer>();
+                Anchor first_anchor_script = ray_renderer.Start.GetComponent<Anchor>();
+                Anchor second_anchor_script = ray_renderer.End.GetComponent<Anchor>();
+                string ray_id_1 = $"{ray_renderer.Start.name}to{ray_renderer.End.name}";
+                string ray_id_2 = $"{ray_renderer.End.name}to{ray_renderer.Start.name}";
+                if (first_anchor_script.RayList.Contains(ray_id_1)) {
+                    first_anchor_script.RayList.Remove(ray_id_1);
+                }
+                if (first_anchor_script.RayList.Contains(ray_id_2)) {
+                    first_anchor_script.RayList.Remove(ray_id_2);
+                }
+                if (second_anchor_script.RayList.Contains(ray_id_1)) {
+                    second_anchor_script.RayList.Remove(ray_id_1);
+                }
+                if (second_anchor_script.RayList.Contains(ray_id_2)) {
+                    second_anchor_script.RayList.Remove(ray_id_2);
+                }
+                // Reset renderings
+                if (first_anchor_script.RayList.Count == 0) first_anchor_script.SetMaterial2Nonactive();
+                if (second_anchor_script.RayList.Count == 0) second_anchor_script.SetMaterial2Nonactive();
+                GameObject.Destroy(ray_obj);
+            } else {
+                Anchor anchor = first_anchor.GetComponent<Anchor>();
+                if (anchor.RayList.Count == 0) anchor.SetMaterial2Nonactive();
+                is_first_anchor_set = false;
+                first_anchor = null;
             }
-            if (first_anchor_script.RayList.Contains(ray_id_2)) {
-                first_anchor_script.RayList.Remove(ray_id_2);
-            }
-            if (second_anchor_script.RayList.Contains(ray_id_1)) {
-                second_anchor_script.RayList.Remove(ray_id_1);
-            }
-            if (second_anchor_script.RayList.Contains(ray_id_2)) {
-                second_anchor_script.RayList.Remove(ray_id_2);
-            }
-            // Reset renderings
-            first_anchor_script.SetMaterial2Nonactive();
-            second_anchor_script.SetMaterial2Nonactive();
-            GameObject.Destroy(ray_obj);
         }
     }
 }

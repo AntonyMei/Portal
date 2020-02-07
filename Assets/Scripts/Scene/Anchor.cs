@@ -11,6 +11,8 @@ public class Anchor : MonoBehaviour
     public Material ActiveAnchorMaterial;
     [Tooltip("The material set to non-active anchor")]
     public Material NonactiveAnchorMaterial;
+    [Tooltip("The material for highlighted anchors")]
+    public Material HighlightMaterial;
 
     [Header("Connections")]
     [Tooltip("The list that stores all the rays connected to the anchor")]
@@ -32,5 +34,8 @@ public class Anchor : MonoBehaviour
     }
     public void SetMaterial2Nonactive() {
         MeshRenderer.material = NonactiveAnchorMaterial;
+    }
+    public void SetMaterial2Highlighted() {
+        MeshRenderer.material = HighlightMaterial;
     }
 }
