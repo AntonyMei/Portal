@@ -66,7 +66,6 @@ public class Mirror : MonoBehaviour
         // Generate gameobject
         GameObject ray_obj = Instantiate(RayPrefab);
         ray_obj.name = $"Mirror{gameObject.name}ray";
-        ray_obj.transform.parent = gameObject.transform;
         ray_obj.tag = "Ray";
         // Calculate output direction
         Vector3 normal = Vector3.Project(input, normal_vector);

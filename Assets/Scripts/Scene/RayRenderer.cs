@@ -83,6 +83,9 @@ public class RayRenderer : MonoBehaviour {
 
     /// <summary>
     /// <para> Should be called after the start and end are set </para>
+    /// <para> 
+    /// Notice that the parent of the ray must be world, otherwise transform may go wrong
+    /// </para>
     /// </summary>
     public void Refresh() {
         // Refresh position and scale
@@ -99,6 +102,9 @@ public class RayRenderer : MonoBehaviour {
 
     /// <summary>
     /// <para> Should be called after the start and end are set </para>
+    /// <para> 
+    /// Notice that the parent of the ray must be world, otherwise transform may go wrong
+    /// </para>
     /// </summary>
     /// <param name="start"> The start point of the ray </param>
     /// <param name="end"> The end point of the ray </param>
@@ -119,6 +125,9 @@ public class RayRenderer : MonoBehaviour {
 
     /// <summary>
     /// <para> Should be called after the start and end are set </para>
+    /// <para> 
+    /// Notice that the parent of the ray must be world, otherwise transform may go wrong
+    /// </para>
     /// </summary>
     /// <param name="start"> The start point of the ray </param>
     /// <param name="end"> The end point of the ray </param>
