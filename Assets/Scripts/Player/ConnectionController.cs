@@ -34,10 +34,18 @@ public class ConnectionController : MonoBehaviour
     private Stack<GameObject> ray_list = new Stack<GameObject>();
     private GameObject ray_root;
 
+    /// <summary>
+    /// Whether the first anchor has been set
+    /// </summary>
+    /// <returns></returns>
     public bool IsFirstAnchorSet() {
         return is_first_anchor_set;
     }
-    /// <returns> The first anchor or null </returns>
+
+    /// <summary>
+    /// Returns the first anchor or null
+    /// </summary>
+    /// <returns></returns>
     public GameObject GetFirstAnchor() {
         return first_anchor;
     }
@@ -45,6 +53,7 @@ public class ConnectionController : MonoBehaviour
     void Start() {
         ray_root = new GameObject("RayRoot");
     }
+
     void Update() {
         // Cast a virtual ray to detect
         RaycastHit hit_info;
@@ -92,7 +101,7 @@ public class ConnectionController : MonoBehaviour
                     }
                 } else {
                     Anchor anchor = first_anchor.GetComponent<Anchor>();
-                    if (anchor.RayList.Count == 0) anchor.SetMaterial2Nonactive(); //
+                    if (anchor.RayList.Count == 0) anchor.SetMaterial2Nonactive(); 
                     is_first_anchor_set = false;
                     first_anchor = null;
                 }

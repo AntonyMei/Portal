@@ -24,9 +24,11 @@ public class MotionController : MonoBehaviour {
     private float LastJumpTime;
 
     void Awake() {
+        // Get the collider attached to the player
         CapsuleCollider = GetComponent<CapsuleCollider>();
         LastJumpTime = Time.time;
     }
+
     void Update() {
         // Jump
         if (Input.GetKeyDown(KeyCode.Space) && OnGround() && IsJumpValid()) {
@@ -56,6 +58,11 @@ public class MotionController : MonoBehaviour {
         delta_pos *= Time.deltaTime;
         transform.position += delta_pos;
     }
+
+    /// <summary>
+    /// Detects whether the player is on ground
+    /// </summary>
+    /// <returns></returns>
     bool OnGround() {
         Vector3 bottom_center = transform.position
             - (CapsuleCollider.height / 2 + CapsuleCollider.radius) * new Vector3(0, 1, 0);
@@ -67,6 +74,12 @@ public class MotionController : MonoBehaviour {
             CapsuleCollider.radius, ignore_mask);
         if (colliders.Length != 0) { return true; } else { return false; }
     }
+
+    /// <summary>
+    /// The jump is valid if the player is on ground and more than 
+    /// MinimalDeltaTime has passed since last jump
+    /// </summary>
+    /// <returns></returns>
     bool IsJumpValid() {
         if (Time.time - LastJumpTime > MinimalDeltaTime) {
             LastJumpTime = Time.time; return true;

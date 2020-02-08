@@ -14,25 +14,53 @@ public class Mirror : MonoBehaviour
     private bool has_output = false;
     private GameObject output_ray = null;
 
+    /// <summary>
+    /// <para> Refreshes the normal vector of the mirror </para>
+    /// <para> For non-static mirrors, this function will be called automatically every frame </para>
+    /// </summary>
     public void RefreshNormalVector() {
         normal_vector = gameObject.transform.up;
     }
+
     /// <summary>
     /// Only works when the mirror is static
     /// </summary>
     public void SetNormalVector(Vector3 normal) {
         if (IsStatic) normal_vector = normal;
     }
+
+    /// <summary>
+    /// Get the normal vector of the mirror
+    /// </summary>
+    /// <returns> The normal vector of the mirror </returns>
     public Vector3 GetNormalVector() {
         return normal_vector;
     }
-    public bool HasInput() {
+
+    /// <summary>
+    /// Returns whether the mirror has a output ray
+    /// </summary>
+    /// <returns></returns>
+    public bool HasOutput() {
         return has_output;
     }
-    /// <returns>Output ray or null</returns>
+
+    /// <summary>
+    /// Get the output ray
+    /// </summary>
+    /// <returns></returns>
     public GameObject GetOutputRay() {
         return output_ray;
     }
+
+    /// <summary>
+    /// <para> Generate the output ray </para>
+    /// <para> The ray is stored in output_ray </para>
+    /// </summary>
+    /// <param name="input"> The input ray's direction </param>
+    /// <param name="collision_point"> The point where the input ray hits the mirror </param>
+    /// <param name="output_lengh"> The maxium length of the output ray </param>
+    /// <param name="output_radius"> The radius of output ray </param>
     public void GenerateOutputRay(Vector3 input, Vector3 collision_point, 
         float output_lengh, float output_radius) {
         // Generate gameobject
@@ -55,6 +83,10 @@ public class Mirror : MonoBehaviour
         has_output = true;
         output_ray = ray_obj;
     }
+
+    /// <summary>
+    /// Destroys the output ray
+    /// </summary>
     public void DestroyOutputRay() {
         if (output_ray) {
             GameObject.Destroy(output_ray);
@@ -64,9 +96,13 @@ public class Mirror : MonoBehaviour
     }
 
     private void OnEnable() {
+        // If the mirror is non-static, the normal vector will be refreshed when mirror enabled and in every frame
+        // For static mirrors, normal vectors must be set automatically through calling SetNormalVector(Vector3)
         if (!IsStatic) RefreshNormalVector();
     }
     private void Update() {
+        // If the mirror is non-static, the normal vector will be refreshed when mirror enabled and in every frame
+        // For static mirrors, normal vectors must be set automatically through calling SetNormalVector(Vector3)
         if (!IsStatic) RefreshNormalVector();
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 public class GenerateObject : MonoBehaviour
 {
     [Header("Fracture Settings")]
-    // Parameters of fixed fractures. Fractures are used as portals.
+    // Parameters of fixed fractures. Fractures were used as portals.
     // This part is obselete. Use Portal settings instead.
     [Tooltip("The lower bound of fracture size"), HideInInspector]
     public float FractureLowerBound = 5.0f;
@@ -23,7 +23,6 @@ public class GenerateObject : MonoBehaviour
         new Keyframe(1000, 200, 0, 0), new Keyframe(5000, 10, 0, 0));
 
     [Header("Portal Settings")]
-    // Parameters of portals.
     [Tooltip("The lower bound of fracture size")]
     public float PortalLowerBound = 5.0f;
     [Tooltip("The upper bound of fracture size")]
@@ -40,7 +39,6 @@ public class GenerateObject : MonoBehaviour
         new Keyframe(1000, 10, 0, 0), new Keyframe(5000, 2, 0, 0));
 
     [Header("Anchor Settings")]
-    // Parameters of fixed anchors. Anchors are ordinary objects players can attach ray to.
     [Tooltip("The lower bound of anchor size")]
     public float AnchorLowerBound = 3.0f;
     [Tooltip("The upper bound of anchor size")]
@@ -103,31 +101,70 @@ public class GenerateObject : MonoBehaviour
             min_ = min_val; max_ = max_val; length_ = max_ - min_;
         }
     }
+
+    /// <summary>
+    /// Get a random position in a given range
+    /// </summary>
+    /// <param name="x_range"> The constraint of x-axis </param>
+    /// <param name="y_range"> The constraint of y-axis </param>
+    /// <param name="z_range"> The constraint of z-axis </param>
+    /// <returns></returns>
     public Vector3 GetRandomPos(Range x_range, Range y_range, Range z_range) {
         float x = x_range.min + x_range.length * UnityEngine.Random.value;
         float y = y_range.min + y_range.length * UnityEngine.Random.value;
         float z = z_range.min + z_range.length * UnityEngine.Random.value;
         return new Vector3(x, y, z);
     }
+
+    /// <summary>
+    /// Get a random rotation
+    /// </summary>
+    /// <returns></returns>
     public Quaternion GetRandomQuaternion() {
         return new Quaternion(-1 + 2 * UnityEngine.Random.value,
                               -1 + 2 * UnityEngine.Random.value,
                               -1 + 2 * UnityEngine.Random.value,
                               -1 + 2 * UnityEngine.Random.value);
     }
+
+    /// <summary>
+    /// Get a random integar between 0 and upperbound(Inclusive)
+    /// </summary>
+    /// <param name="upperbound"></param>
+    /// <returns></returns>
     public int GetRandInt(int upperbound) {
         return (int)(UnityEngine.Random.value * upperbound);
     }
+
+    /// <summary>
+    /// Get the smaller number in a and b
+    /// </summary>
+    /// <typeparam name="_tp"> Must be comparable type </typeparam>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
     public _tp Min<_tp>(_tp a, _tp b) where _tp : IComparable {
         return a.CompareTo(b) < 0 ? a : b;
     }
+
+    /// <summary>
+    /// Get the larger number in a and b
+    /// </summary>
+    /// <typeparam name="_tp"> Must be comparable type </typeparam>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
     public _tp Max<_tp>(_tp a, _tp b) where _tp : IComparable {
         return a.CompareTo(b) < 0 ? b : a;
     }
 
-    // Fracture
+    /// <summary>
+    /// Get the mesh of a random two-sided triangle
+    /// </summary>
+    /// <returns></returns>
     public Mesh CreateFracture() {
         Mesh frac = new Mesh();
+        // Generate the vertices
         Vector3[] vertices = new Vector3[3];
         vertices[0] = new Vector3(0, 0, 0);
         vertices[1] = new Vector3(UnityEngine.Random.value,
@@ -135,35 +172,48 @@ public class GenerateObject : MonoBehaviour
         vertices[2] = new Vector3(UnityEngine.Random.value,
             UnityEngine.Random.value, UnityEngine.Random.value);
         frac.vertices = vertices;
+        // Generate triangles
         int[] triangles = new int[6];
         triangles[0] = 0; triangles[1] = 1;
         triangles[2] = 2; triangles[3] = 0;
         triangles[4] = 2; triangles[5] = 1;
         frac.triangles = triangles;
+        // Set UV
         Vector2[] uvs = new Vector2[vertices.Length];
         for (int i = 0; i < uvs.Length; i++) { uvs[i] = Vector2.zero; }
         frac.uv = uvs;
         return frac;
     }
+
+    /// <summary>
+    /// <para> Generates fractures in a given area </para>
+    /// <para> This function uses values set in Fracture Settings </para>
+    /// <para> Returns the root of the fractures </para>
+    /// </summary>
+    /// <param name="x"> The constraint of x-axis </param>
+    /// <param name="y"> The constraint of y-axis </param>
+    /// <param name="z"> The constraint of z-axis </param>
+    /// <returns></returns>
     [Obsolete("Do not call this function, use portal instead",true)]
     public GameObject GenerateFractures(Range x, Range y, Range z) {
-        //Create the root GameObject
+        // Create the root GameObject
         GameObject root = new GameObject {
             name = $"X{(x.min % 500).ToString()}{(x.max % 500).ToString()}" +
                    $"Y{(y.min % 500).ToString()}{(y.max % 500).ToString()}" +
                    $"Z{(z.min % 500).ToString()}{(z.max % 500).ToString()}" +
                    $"Frac"
         };
-        //Generate Fractures
+        // Calculate fracture count, which must be even
         int fixed_fracture_count =
             (int)FixedFractureDensity.Evaluate(Min((y.min + y.max) / 2, 5000));
         fixed_fracture_count += fixed_fracture_count % 2 == 0 ? 0 : 1;
         GameObject last = null;
+        // Generate Fractures
         for(int i = 0; i < fixed_fracture_count; i++) {
             GameObject frac = new GameObject();
             frac.name = $"{root.name}id{i.ToString()}";
             frac.tag = "Fracture";
-            //Set transform
+            // Set transform
             frac.transform.position = GetRandomPos(x, y, z);
             frac.transform.rotation = GetRandomQuaternion();
             frac.transform.parent = root.transform;
@@ -171,16 +221,17 @@ public class GenerateObject : MonoBehaviour
                                 + UnityEngine.Random.value
                                 * (FractureUpperBound - FractureLowerBound);
             frac.transform.localScale *= size_factor;
-            //Set Mesh
+            // Set Mesh
             MeshFilter filter = frac.AddComponent<MeshFilter>();
             filter.mesh = CreateFracture();
             MeshRenderer renderer = frac.AddComponent<MeshRenderer>();
             renderer.material = LowerFractureMaterial;
-            //Set Portal
+            // Add script Portal
             Portal portal = frac.AddComponent<Portal>();
             portal.LowerMaterial = LowerFractureMaterial;
             portal.UpperMaterial = UpperFractureMaterial;
             portal.isStatic = true;
+            // Connect portals
             if(i % 2 == 0) {
                 last = frac;
             } else {
@@ -193,20 +244,29 @@ public class GenerateObject : MonoBehaviour
         return root;
     }
 
-    // Portal
+    /// <summary>
+    /// <para> Generates portals in a given area </para>
+    /// <para> This function uses values set in Portal Settings </para>
+    /// <para> Returns the root of the portals </para>
+    /// </summary>
+    /// <param name="x"> The constraint of x-axis </param>
+    /// <param name="y"> The constraint of y-axis </param>
+    /// <param name="z"> The constraint of z-axis </param>
+    /// <returns></returns>
     public GameObject GeneratePortal(Range x, Range y, Range z) {
-        //Create the root GameObject
+        // Create the root GameObject
         GameObject root = new GameObject {
             name = $"X{(x.min % 500).ToString()}{(x.max % 500).ToString()}" +
                    $"Y{(y.min % 500).ToString()}{(y.max % 500).ToString()}" +
                    $"Z{(z.min % 500).ToString()}{(z.max % 500).ToString()}" +
                    $"Portal"
         };
-        //Generate Fractures
+        // Calculate portal count, which must be even
         int portal_count = 
             (int)PortalDensity.Evaluate(Min((y.min + y.max) / 2, 5000));
         portal_count += portal_count % 2 == 0 ? 0 : 1;
         GameObject last = null;
+        //Generate portals
         for (int i = 0; i < portal_count; i++) {
             GameObject portal_obj = Instantiate(PortalPrefab);
             portal_obj.name = $"{root.name}id{i.ToString()}";
@@ -221,11 +281,12 @@ public class GenerateObject : MonoBehaviour
             portal_obj.transform.localScale *= size_factor;
             // Get the actual portal
             GameObject actual_portal = portal_obj.transform.GetChild(1).gameObject;
-            // Set Portal
+            // Set portal
             Portal portal = actual_portal.AddComponent<Portal>();
             portal.LowerMaterial = LowerPortalMaterial;
             portal.UpperMaterial = UpperPortalMaterial;
             portal.isStatic = true;
+            // Connect portals
             if (i % 2 == 0) {
                 last = actual_portal;
             } else {
@@ -238,19 +299,30 @@ public class GenerateObject : MonoBehaviour
         return root;
     }
 
-    //Anchor
+    /// <summary>
+    /// <para> Generates anchors in a given area </para>
+    /// <para> This function uses values set in Anchor Settings </para>
+    /// <para> Returns the root of the anchors </para>
+    /// </summary>
+    /// <param name="x"> The constraint of x-axis </param>
+    /// <param name="y"> The constraint of y-axis </param>
+    /// <param name="z"> The constraint of z-axis </param>
+    /// <returns></returns>
     public GameObject GenerateAnchor(Range x, Range y, Range z) {
-        //Create the root GameObject
+        // Create the root GameObject
         GameObject root = new GameObject {
             name = $"X{(x.min % 500).ToString()}{(x.max % 500).ToString()}" +
                    $"Y{(y.min % 500).ToString()}{(y.max % 500).ToString()}" +
                    $"Z{(z.min % 500).ToString()}{(z.max % 500).ToString()}" +
                    $"Anchor"
         };
-        //Generate anchor
+        // Calculate anchor count
         int fixed_anchor_count = 
             (int)AnchorDensity.Evaluate(Min((y.max + y.min) / 2, 5000));
+        // Generate anchor
         for(int i = 0; i< fixed_anchor_count; i++) {
+            // Set transform   
+            // The script for anchors is supposed to have been attached to AnchorPrefab
             GameObject anchor = null;
             anchor = Instantiate(AnchorPrefab, 
                 GetRandomPos(x, y, z), GetRandomQuaternion(), root.transform);
@@ -264,19 +336,30 @@ public class GenerateObject : MonoBehaviour
         return root;
     }
 
-    // Trampoline
+    /// <summary>
+    /// <para> Generates trampolines in a given area </para>
+    /// <para> This function uses values set in Trampoline Settings </para>
+    /// <para> Returns the root of the trampolines </para>
+    /// </summary>
+    /// <param name="x"> The constraint of x-axis </param>
+    /// <param name="y"> The constraint of y-axis </param>
+    /// <param name="z"> The constraint of z-axis </param>
+    /// <returns></returns>
     public GameObject GenerateTrampoline(Range x, Range y, Range z) {
-        //Create the root GameObject
+        // Create the root GameObject
         GameObject root = new GameObject {
             name = $"X{(x.min % 500).ToString()}{(x.max % 500).ToString()}" +
                    $"Y{(y.min % 500).ToString()}{(y.max % 500).ToString()}" +
                    $"Z{(z.min % 500).ToString()}{(z.max % 500).ToString()}" +
                    $"Trampoline"
         };
-        //Generate anchor
+        // Calculate trampoline count
         int trampoline_count =
             (int)TrampolineDensity.Evaluate(Min((y.max + y.min) / 2, 5000));
+        // Generate trampoline
         for (int i = 0; i < trampoline_count; i++) {
+            // Set transform
+            // The script for trampolines is supposed to have been attached to TrampolinePrefab
             GameObject trampoline = Instantiate(TrampolinePrefab,
                 GetRandomPos(x, y, z), GetRandomQuaternion(), root.transform);
             trampoline.tag = "Trampoline";
@@ -285,27 +368,34 @@ public class GenerateObject : MonoBehaviour
                                 + (UnityEngine.Random.value
                                 * (TrampolineUpperBound - TrampolineLowerBound));
             trampoline.transform.localScale *= size_factor;
-            // Add Here
-            //
-            //
-            //
         }
         return root;
     }
 
-    //Plane
+    /// <summary>
+    /// <para> Generates planes in a given area </para>
+    /// <para> This function uses values set in Plane Settings </para>
+    /// <para> Returns the root of the planes </para>
+    /// </summary>
+    /// <param name="x"> The constraint of x-axis </param>
+    /// <param name="y"> The constraint of y-axis </param>
+    /// <param name="z"> The constraint of z-axis </param>
+    /// <returns></returns>
     public GameObject GeneratePlane(Range x, Range y, Range z) {
-        //Create the root GameObject
+        // Create the root GameObject
         GameObject root = new GameObject {
             name = $"X{(x.min % 500).ToString()}{(x.max % 500).ToString()}" +
                    $"Y{(y.min % 500).ToString()}{(y.max % 500).ToString()}" +
                    $"Z{(z.min % 500).ToString()}{(z.max % 500).ToString()}" +
                    $"Plane"
         };
-        //Generate plane
+        // Calculate plane count
         int fixed_plane_count = 
             (int)PlaneDensity.Evaluate(Min((y.max + y.min) / 2, 5000));
+        // Generate plane
         for (int i = 0; i < fixed_plane_count; i++) {
+            // Set transform
+            // The script for planes is supposed to have been attached to PlanePrefab
             GameObject plane = Instantiate(PlanePrefab,
                                GetRandomPos(x, y, z),
                                new Quaternion(),
@@ -321,8 +411,8 @@ public class GenerateObject : MonoBehaviour
     }
 
     private void Start() {
-        //GenerateFractures(new Range(0, 500), new Range(0, 500), new Range(0, 500));
         //UnityEngine.Random.seed = 1;
+        //GenerateFractures(new Range(0, 500), new Range(0, 500), new Range(0, 500));
         //GeneratePortal(new Range(0, 500), new Range(0, 500), new Range(0, 500));
         //GenerateAnchor(new Range(0, 500), new Range(0, 500), new Range(0, 500));
         //GeneratePlane(new Range(0, 500), new Range(0, 500), new Range(0, 500));

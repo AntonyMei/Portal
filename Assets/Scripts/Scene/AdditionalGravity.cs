@@ -11,6 +11,7 @@ public class AdditionalGravity : MonoBehaviour {
     public float Magnitude = 100f;
 
     void Update() {
+        // Add a force to the player to simulate gravity
         Player.AddForce(new Vector3(0, -Magnitude, 0));
     }
 }

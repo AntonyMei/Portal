@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// This script should be added to GameObjects AnchorGroup
-/// </summary>
 public class AnchorHighlightController : MonoBehaviour
 {
     [Header("Render Settings")]
@@ -32,12 +29,14 @@ public class AnchorHighlightController : MonoBehaviour
     public GameObject HighLightedAnchor;
 
     void OnEnable() {
+        // Load all the anchors in the scene
         foreach (GameObject anchor_group in AnchorGroup) {
             for (int i = 0; i < anchor_group.transform.childCount; i++) {
                 AnchorList.Add(anchor_group.transform.GetChild(i).gameObject);
             }
         }
     }
+
     void Update() {
         // Remove highlight
         if (HighLightedAnchor) {
@@ -45,7 +44,11 @@ public class AnchorHighlightController : MonoBehaviour
             if (anchor_script.RayList.Count == 0) anchor_script.SetMaterial2Nonactive();
             else anchor_script.SetMaterial2Active();
         }
-        // Calculate highlight
+        // Calculate highlight anchor
+        // The anchor that satisfies the following conditions will be highlighted
+        // 1. The anchor is within the HighlightRange
+        // 2. The anchor is within the triggering range in screen space
+        // 3. The anchor is the one closest to the cursor that satisfies 1 & 2
         if(EnableHighlight && ConnectionController.IsFirstAnchorSet()) {
             GameObject nearest_anchor = null;
             float nearest_anchor_distance = HighlightTriggerRange;

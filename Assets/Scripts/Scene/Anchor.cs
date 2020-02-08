@@ -21,20 +21,35 @@ public class Anchor : MonoBehaviour
     public MeshRenderer MeshRenderer;
 
     void OnEnable() {
+        // Get the MeshRenderer attached
         if (!TryGetComponent<MeshRenderer>(out MeshRenderer)) {
             MeshRenderer = gameObject.AddComponent<MeshRenderer>();
         }
     }
+
     void Update() {
+        // Change active state
         if (RayList.Count != 0) IsActive = true;
         else IsActive = false;
     }
+
+    /// <summary>
+    /// Set the anchor's material to ActiveMaterial
+    /// </summary>
     public void SetMaterial2Active() {
         MeshRenderer.material = ActiveAnchorMaterial;
     }
+
+    /// <summary>
+    /// Set the anchor's material to NonactiveMaterial
+    /// </summary>
     public void SetMaterial2Nonactive() {
         MeshRenderer.material = NonactiveAnchorMaterial;
     }
+
+    /// <summary>
+    /// Set the anchor's material to HighlightMaterial
+    /// </summary>
     public void SetMaterial2Highlighted() {
         MeshRenderer.material = HighlightMaterial;
     }

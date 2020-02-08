@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class RayController : MonoBehaviour {
+
     [Header("Cursor Settings")]
     [Tooltip("The normal texture of the cursor")]
     public Texture2D NormalTexture;
@@ -25,8 +26,10 @@ public class RayController : MonoBehaviour {
     public GameObject RayStartIndicator;
 
     void Start() {
+        // Lock the cursor
         Cursor.lockState = CursorLockMode.Locked;
     }
+
     void Update() {
         // Cast a virtual ray to detect
         RaycastHit hit_info;

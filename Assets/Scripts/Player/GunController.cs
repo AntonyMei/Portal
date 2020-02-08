@@ -18,7 +18,9 @@ public class GunController : MonoBehaviour
     private Mirror last_mirror = null;
 
     void Update() {
+        // Destroys the ray in the last frame
         if(last_mirror) last_mirror.DestroyOutputRay();
+        // Check for interactions
         if (Input.GetKey(KeyCode.Mouse0)) {
             // Cast a virtual ray to detect
             RaycastHit hit_info = new RaycastHit();
