@@ -81,7 +81,7 @@ public class ConnectionController : MonoBehaviour
                         RayRenderer ray_renderer = ray_obj.AddComponent<RayRenderer>();
                         ray_renderer.Radius = Radius;
                         ray_renderer.SetRenderer(RayMaterial, RayMesh);
-                        ray_renderer.RenderWithGameObjects(first_anchor, hit_info.transform.gameObject);
+                        ray_renderer.SetRendererWithGameObjects(first_anchor, hit_info.transform.gameObject);
                         ray_renderer.StartRendering();
                         // Add ray to lists
                         ray_list.Push(ray_obj);

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The script for GameObject Trampoline
+/// </summary>
 public class Trampoline : MonoBehaviour
 {
     [Header("Trampoline Settings")]
@@ -22,18 +25,30 @@ public class Trampoline : MonoBehaviour
         "to trigger an additional force")]
     public float MinimalNormalVelocity  = 5f;
 
+    // The normal vector of the trampoline
     [HideInInspector]
     public Vector3 NormalVector = new Vector3();
 
-    void OnEnable() { if(!isStatic) RefreshNormalVector(); }
-
-    void Update() { if (!isStatic) RefreshNormalVector(); }
+    /// <summary>
+    /// If the player enters the collider surrounding the trampoline, change its 
+    /// physic material to full bounciness, so that the trampoline can totally reverse
+    /// the player's velocity normal to the trampoline
+    /// </summary>
     public void OnTriggerEnter(Collider collider) {
         if(collider.tag == "Player") { collider.material = TrampolinePhysicMaterial; }
     }
+
+    /// <summary>
+    /// When the player leaves the trampoline, change its physic material back to normal.
+    /// </summary>
     public void OnTriggerExit(Collider collider) {
         if (collider.tag == "Player") { collider.material = NormalPhysicMaterial; }
     }
+
+    /// <summary>
+    /// When the player actually hits the trampoline, add a force to the player depending on
+    /// its velocity normal to the trampoline
+    /// </summary>
     public void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.tag == "Player") {
             Rigidbody rigidbody = collision.gameObject.GetComponent<Rigidbody>();
@@ -43,8 +58,27 @@ public class Trampoline : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// <para> Refreshes the normal vector of the trampoline. </para>
+    /// <para> For non-static trampolines, this function will be called automatically when trampoline is
+    /// created and in every frame. </para>
+    /// <para> For static trampolines, this function must be called manually before it can work properly </para>
+    /// </summary>
     public void  RefreshNormalVector() { 
         NormalVector = gameObject.transform.up;
         NormalVector.Normalize();
     }
+    
+    /// <summary>
+    /// <para> If the trampoline is not static, refresh its normal vector </para>
+    /// <para> Static trampolines should call RefreshNormalVector manually </para>
+    /// </summary>
+    void OnEnable() { if(!isStatic) RefreshNormalVector(); }
+
+    /// <summary>
+    /// If the trampoline is not static, refresh its normal vector
+    /// Static trampolines should call RefreshNormalVector manually
+    /// </summary>
+    void Update() { if (!isStatic) RefreshNormalVector(); }
 }
