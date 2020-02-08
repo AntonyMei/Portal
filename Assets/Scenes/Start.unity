@@ -1050,6 +1050,7 @@ GameObject:
   - component: {fileID: 1954851986516179208}
   - component: {fileID: 1954851986516179209}
   - component: {fileID: 1954851986516179210}
+  - component: {fileID: 1954851986516179211}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1192,6 +1193,23 @@ MonoBehaviour:
   ReflectedRayLength: 300
   ReflectedRayRadius: 0.1
   PlayerCamera: {fileID: 1954851986628587406}
+--- !u!114 &1954851986516179211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954851986516179202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93df23d4d041441439eb56457324338d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NonrenderingMirrorMaterial: {fileID: 2100000, guid: 7af690447f99d1e4ebfa9811cbfd8058,
+    type: 2}
+  obj1: {fileID: 8500478311094632641}
+  obj2: {fileID: 8500478311794020313}
+  obj3: {fileID: 8500478312594182064}
 --- !u!223 &1954851986599926745
 Canvas:
   m_ObjectHideFlags: 0

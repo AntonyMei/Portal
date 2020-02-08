@@ -2,7 +2,7 @@
 
 
 /// <summary>
-/// 镜子管理脚本
+/// Attach to the mirror
 /// </summary>
 [ExecuteInEditMode]
 public class MirrorManager : MonoBehaviour {
