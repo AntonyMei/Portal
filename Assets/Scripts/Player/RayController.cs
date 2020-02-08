@@ -34,6 +34,7 @@ public class RayController : MonoBehaviour {
                           PlayerCamera.transform.forward);
         Physics.Raycast(ray, out hit_info);
         // Change cursor sprite and generate ray entity
+        // Layer9 is layer for interactive objects
         if (hit_info.distance < MaxRayLength && hit_info.distance != 0) {
             if (Input.GetKey(KeyCode.Mouse0)) {
                 CursorImage.texture = PressedTexture;
@@ -41,7 +42,7 @@ public class RayController : MonoBehaviour {
                 Vector3 end = hit_info.point;
                 RayRenderer.Refresh(start, end);
                 RayRenderer.StartRendering();
-            } else if (hit_info.transform.tag == "Anchor") {
+            } else if (hit_info.transform.gameObject.layer == 9) {
                 CursorImage.texture = DetectedTexture;
                 RayRenderer.StopRendering();
             } else { 

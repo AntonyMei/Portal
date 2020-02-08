@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8074014598302217237}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Portal
-  m_TagString: Untagged
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 7129066154116687921}
   - component: {fileID: 4247429365868972700}
   - component: {fileID: 4602874478463464734}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ring
-  m_TagString: Untagged
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,9 +134,9 @@ GameObject:
   - component: {fileID: 3985002820908909130}
   - component: {fileID: 2193456334223891045}
   - component: {fileID: 5019349557115279123}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

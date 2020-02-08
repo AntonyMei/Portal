@@ -78,6 +78,20 @@ public class RayRenderer : MonoBehaviour {
         transform.eulerAngles = new Vector3(0, 0, 0);
         transform.Rotate(axis, -angle);
     }
+    public void Refresh(Vector3 start, Vector3 end, float radius) {
+        // Set start, end and radius
+        StartPoint = start; EndPoint = end; Radius = radius;
+        // Refresh position and scale
+        transform.position = (EndPoint + StartPoint) / 2;
+        transform.localScale =
+            new Vector3(Radius, (EndPoint - StartPoint).magnitude / 2, Radius);
+        // Refresh direction
+        Vector3 dir = EndPoint - StartPoint;
+        float angle = Vector3.Angle(new Vector3(0, 1, 0), dir);
+        Vector3 axis = Vector3.Cross(dir, new Vector3(0, 1, 0));
+        transform.eulerAngles = new Vector3(0, 0, 0);
+        transform.Rotate(axis, -angle);
+    }
     public void RenderWithGameObjects(GameObject start, GameObject end) {
         UseGameObjectAsEndpoint = true;
         Start = start; End = end;

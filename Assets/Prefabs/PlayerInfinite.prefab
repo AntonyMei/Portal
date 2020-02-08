@@ -119,10 +119,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8397511134972904927}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8e782c2352f95545860e49147c46f78, type: 3}
+  m_Script: {fileID: 11500000, guid: c7bb9a2c22c18c84c8f1383b78954a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MinLength: 10
+  MinLength: 3
   Radius: 0.001
   RayStartPoint: {fileID: 8397511136472541800}
   Player: {fileID: 8397511135201039865}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 8397511135201039871}
   - component: {fileID: 8397511135201039870}
   m_Layer: 0
-  m_Name: Player
+  m_Name: PlayerInfinite
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

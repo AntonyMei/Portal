@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3715732146957141784}
   - component: {fileID: 7750290162779497909}
   - component: {fileID: 7971328069741140535}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ring
-  m_TagString: Untagged
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,9 +103,9 @@ GameObject:
   - component: {fileID: 5697002659639014732}
   - component: {fileID: 1501711341090322490}
   - component: {fileID: 3512444336487270105}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -354,7 +354,7 @@ MonoBehaviour:
   Other: {fileID: 0}
   UpperMaterial: {fileID: 2100000, guid: 79372ed4440d4c94f966e88adf1f9a01, type: 2}
   LowerMaterial: {fileID: 2100000, guid: 3445d6cd88c67424ca29dcfce6247f3b, type: 2}
-  isFixed: 0
+  isStatic: 1
   FractureLowerBound: 0.2
   FractureUpperBound: 1
   FractureCount: 100
@@ -369,9 +369,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2410481511936351036}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Portal(With script)
-  m_TagString: Untagged
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

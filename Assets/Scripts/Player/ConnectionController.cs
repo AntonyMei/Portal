@@ -75,7 +75,7 @@ public class ConnectionController : MonoBehaviour
                         first_anchor.transform.GetComponent<Anchor>().SetMaterial2Active();
                         // Generate ray
                         GameObject ray_obj = new GameObject();
-                        ray_obj.name = ray_id_1;
+                        ray_obj.name = ray_id_1; ray_obj.tag = "Ray";
                         ray_obj.transform.parent = ray_root.transform;
                         // Render ray
                         RayRenderer ray_renderer = ray_obj.AddComponent<RayRenderer>();
