@@ -92,6 +92,10 @@ public class ConnectionController : MonoBehaviour
                         ray_renderer.SetRenderer(RayMaterial, RayMesh);
                         ray_renderer.SetRendererWithGameObjects(first_anchor, hit_info.transform.gameObject);
                         ray_renderer.StartRendering();
+                        // Add collider
+                        BoxCollider collider = ray_obj.AddComponent<BoxCollider>();
+                        collider.isTrigger = true;
+                        ray_obj.layer = 9; // Interactive
                         // Add ray to lists
                         ray_list.Push(ray_obj);
                         first_anchor_script.RayList.Add(ray_id_1);
