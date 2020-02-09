@@ -62,8 +62,7 @@ public class AnchorHighlightController : MonoBehaviour
                     nearest_anchor_distance = Anchor2CursorDis;
                 } 
             }
-            if (nearest_anchor && nearest_anchor.GetComponent<Anchor>().RayList.Count == 0
-                && nearest_anchor != ConnectionController.GetFirstAnchor()) {
+            if (nearest_anchor && nearest_anchor != ConnectionController.GetFirstAnchor()) {
                 nearest_anchor.GetComponent<Anchor>().SetMaterial2Highlighted();
                 HighLightedAnchor = nearest_anchor;
             } else { HighLightedAnchor = null; }

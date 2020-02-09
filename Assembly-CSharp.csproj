@@ -72,6 +72,7 @@
      <Compile Include="Assets\Scripts\Scene\AdditionalGravity.cs" />
      <Compile Include="Assets\Scripts\Scene\Anchor.cs" />
      <Compile Include="Assets\Scripts\Scene\AnchorHighlightController.cs" />
+     <Compile Include="Assets\Scripts\Scene\ConnectionRay.cs" />
      <Compile Include="Assets\Scripts\Scene\Fracture.cs" />
      <Compile Include="Assets\Scripts\Scene\GenerateObject.cs" />
      <Compile Include="Assets\Scripts\Scene\Mirror.cs" />

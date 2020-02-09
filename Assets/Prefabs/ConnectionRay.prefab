@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7007899080855191993}
   - component: {fileID: 2815254760393181731}
   m_Layer: 9
-  m_Name: Ray
+  m_Name: ConnectionRay
   m_TagString: Ray
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

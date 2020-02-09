@@ -13,17 +13,115 @@ public class MirrorController : MonoBehaviour
     public int XResolution = 1024;
     [Tooltip("The resolution of camera-based mirror "), Range(256, 1024)]
     public int YResolution = 1024;
+
+    [Header("Ray Settings")]
     [Tooltip("The prefab of ray")]
     public GameObject RayPrefab;
+    [Tooltip("The material of active ray")]
+    public Material ActiveRayMaterial;
+    [Tooltip("The material of non-active ray")]
+    public Material NonactiveRayMaterial;
 
     [Header("Dependencies")]
     [Tooltip("The camera attached to the player")]
     public Camera PlayerCamera;
+    
+    [Tooltip("The mirror's root"), HideInInspector]
+    public GameObject MirrorRoot;
+    // The first and second edge
+    private GameObject first_edge = null;
+    private GameObject second_edge = null;
 
-    // Test examples
-    public GameObject obj1;
-    public GameObject obj2;
-    public GameObject obj3;
+    void Start() {
+        MirrorRoot = new GameObject("MirrorRoot");
+    }
+
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.Mouse1)) {
+            RaycastHit hit_info = new RaycastHit();
+            Ray ray = new Ray(PlayerCamera.transform.position,
+                              PlayerCamera.transform.forward);
+            Physics.Raycast(ray, out hit_info);
+            if (hit_info.distance != 0 && hit_info.transform.tag == "Ray") {
+                if(!first_edge) {
+                    // Set the first edge
+                    first_edge = hit_info.transform.gameObject;
+                    ConnectionRay connection_ray_script = 
+                        first_edge.GetComponent<ConnectionRay>();
+                    connection_ray_script.SetMaterial2Active();
+                } else if (!second_edge) {
+                    if (hit_info.transform.name != first_edge.name) {
+                        // Set the second edge
+                        second_edge = hit_info.transform.gameObject;
+                        ConnectionRay connection_ray_script =
+                            second_edge.GetComponent<ConnectionRay>();
+                        connection_ray_script.SetMaterial2Active();
+                    }
+                } else {
+                    if (hit_info.transform.name != first_edge.name 
+                        && hit_info.transform.name != second_edge.name) {
+                        Debug.Assert(first_edge && second_edge);
+                        // Check if the three rays can form a triangle
+                        RayRenderer ray_renderer_1 = first_edge.GetComponent<RayRenderer>();
+                        RayRenderer ray_renderer_2 = second_edge.GetComponent<RayRenderer>();
+                        RayRenderer ray_renderer_3 = hit_info.transform.GetComponent<RayRenderer>();
+                        List<GameObject> anchor_list = new List<GameObject>();
+                        anchor_list.Add(ray_renderer_1.Start);
+                        anchor_list.Add(ray_renderer_1.End);
+                        if (!anchor_list.Contains(ray_renderer_2.Start))
+                            anchor_list.Add(ray_renderer_2.Start);
+                        if (!anchor_list.Contains(ray_renderer_2.End))
+                            anchor_list.Add(ray_renderer_2.End);
+                        if (!anchor_list.Contains(ray_renderer_3.Start))
+                            anchor_list.Add(ray_renderer_3.Start);
+                        if (!anchor_list.Contains(ray_renderer_3.End))
+                            anchor_list.Add(ray_renderer_3.End);
+                        // Check if the mimrror has been generated
+                        //
+                        //
+                        //
+                        if (anchor_list.Count == 3) {
+                            // Generate mirror
+                            // Get script
+                            ConnectionRay ray_script_1 = first_edge.GetComponent<ConnectionRay>();
+                            ConnectionRay ray_script_2 = second_edge.GetComponent<ConnectionRay>();
+                            ConnectionRay ray_script_3 = hit_info.transform.GetComponent<ConnectionRay>();
+                            ray_script_3.SetMaterial2Active();
+                            // Generate mirror
+                            GameObject mirror_obj = GenerateMirror(anchor_list[0], anchor_list[1],
+                                                                   anchor_list[2], false);
+                            mirror_obj.transform.parent = MirrorRoot.transform;
+                            // Add mirror to rays' mirror list
+                            ray_script_1.MirrorList.Add(mirror_obj.name);
+                            ray_script_2.MirrorList.Add(mirror_obj.name);
+                            ray_script_3.MirrorList.Add(mirror_obj.name);
+                            // Reset to original
+                            first_edge = null;
+                            second_edge = null;
+                        } else {
+                            if (first_edge && first_edge.GetComponent<ConnectionRay>().MirrorList.Count == 0) {
+                                first_edge.GetComponent<ConnectionRay>().SetMaterial2Nonactive();
+                                first_edge = null;
+                            }
+                            if (second_edge && second_edge.GetComponent<ConnectionRay>().MirrorList.Count == 0) {
+                                second_edge.GetComponent<ConnectionRay>().SetMaterial2Nonactive();
+                                second_edge = null;
+                            }
+                        }
+                    }
+                }                
+            } else {
+                if (first_edge && first_edge.GetComponent<ConnectionRay>().MirrorList.Count == 0) {
+                    first_edge.GetComponent<ConnectionRay>().SetMaterial2Nonactive();
+                    first_edge = null;
+                }
+                if (second_edge && second_edge.GetComponent<ConnectionRay>().MirrorList.Count == 0) {
+                    second_edge.GetComponent<ConnectionRay>().SetMaterial2Nonactive();
+                    second_edge = null;
+                }
+            }
+        } 
+    }
 
     /// <summary>
     /// <para> Creates a triangle that is rendered on both sides </para>
@@ -157,7 +255,4 @@ public class MirrorController : MonoBehaviour
         return mirror;
     }
 
-    void Start() {
-        GenerateMirror(obj1, obj2, obj3, false);
-    }
 }
