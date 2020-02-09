@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &83435640
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1260,7 +1260,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &1890629028
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1769,7 +1769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93df23d4d041441439eb56457324338d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NonCameraMirrorMaterial: {fileID: 2100000, guid: b8d0a38369c057845825e106f62f100b,
+  NonCameraMirrorMaterial: {fileID: 2100000, guid: d0264c5d440626a42833708f8d6d2c9f,
     type: 2}
   CameraPrefab: {fileID: 7855541102545853874, guid: 1bd2b2fd2c76e094f9c40c75ea8807b6,
     type: 3}

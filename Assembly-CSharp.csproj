@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Imported\CursorsAndCrosshairs\CursorChanger.cs" />
+     <Compile Include="Assets\Imported\Real Materials\Demo\Scripts\Camera_WASD_movement.cs" />
      <Compile Include="Assets\Imported\Scripts\SimpleCameraController.cs" />
      <Compile Include="Assets\Imported\TutorialInfo\Scripts\Readme.cs" />
      <Compile Include="Assets\Scripts\Obselete\_CameraControllerInfinite.cs" />
@@ -83,6 +84,8 @@
      <Compile Include="Assets\Scripts\Scene\RayRenderer.cs" />
      <Compile Include="Assets\Scripts\Scene\SceneManager.cs" />
      <Compile Include="Assets\Scripts\Scene\Trampoline.cs" />
+     <None Include="Assets\Imported\Real Materials\Demo\Sounds\Seisemic - license.txt" />
+     <None Include="Assets\Imported\Real Materials\Demo\Sounds\Waves background - license.txt" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>I:/_T.H.U/软件设计大赛/Portal/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>

@@ -76,49 +76,65 @@ public class MirrorController : MonoBehaviour
                             anchor_list.Add(ray_renderer_3.Start);
                         if (!anchor_list.Contains(ray_renderer_3.End))
                             anchor_list.Add(ray_renderer_3.End);
-                        // Check if the mimrror has been generated
-                        //
-                        //
-                        //
                         if (anchor_list.Count == 3) {
-                            // Generate mirror
-                            // Get script
+                            // Check if the mimrror has been generated
+                            string name1 = $"Mirror{anchor_list[0].name}to{anchor_list[1].name}to{anchor_list[2].name}";
+                            string name2 = $"Mirror{anchor_list[0].name}to{anchor_list[2].name}to{anchor_list[1].name}";
+                            string name3 = $"Mirror{anchor_list[1].name}to{anchor_list[0].name}to{anchor_list[2].name}";
+                            string name4 = $"Mirror{anchor_list[1].name}to{anchor_list[2].name}to{anchor_list[0].name}";
+                            string name5 = $"Mirror{anchor_list[2].name}to{anchor_list[0].name}to{anchor_list[1].name}";
+                            string name6 = $"Mirror{anchor_list[2].name}to{anchor_list[1].name}to{anchor_list[0].name}";
                             ConnectionRay ray_script_1 = first_edge.GetComponent<ConnectionRay>();
                             ConnectionRay ray_script_2 = second_edge.GetComponent<ConnectionRay>();
                             ConnectionRay ray_script_3 = hit_info.transform.GetComponent<ConnectionRay>();
-                            ray_script_3.SetMaterial2Active();
-                            // Generate mirror
-                            GameObject mirror_obj = GenerateMirror(anchor_list[0], anchor_list[1],
-                                                                   anchor_list[2], false);
-                            mirror_obj.transform.parent = MirrorRoot.transform;
-                            // Add mirror to rays' mirror list
-                            ray_script_1.MirrorList.Add(mirror_obj.name);
-                            ray_script_2.MirrorList.Add(mirror_obj.name);
-                            ray_script_3.MirrorList.Add(mirror_obj.name);
-                            // Reset to original
-                            first_edge = null;
-                            second_edge = null;
-                        } else {
-                            if (first_edge && first_edge.GetComponent<ConnectionRay>().MirrorList.Count == 0) {
-                                first_edge.GetComponent<ConnectionRay>().SetMaterial2Nonactive();
+                            if (ray_script_1.MirrorList.Contains(name1) || ray_script_1.MirrorList.Contains(name2)
+                             || ray_script_1.MirrorList.Contains(name3) || ray_script_1.MirrorList.Contains(name4)
+                             || ray_script_1.MirrorList.Contains(name5) || ray_script_1.MirrorList.Contains(name6)) {
+                                if (first_edge && first_edge.GetComponent<ConnectionRay>().MirrorList.Count == 0) {
+                                    first_edge.GetComponent<ConnectionRay>().SetMaterial2Nonactive();
+                                }
                                 first_edge = null;
-                            }
-                            if (second_edge && second_edge.GetComponent<ConnectionRay>().MirrorList.Count == 0) {
-                                second_edge.GetComponent<ConnectionRay>().SetMaterial2Nonactive();
+                                if (second_edge && second_edge.GetComponent<ConnectionRay>().MirrorList.Count == 0) {
+                                    second_edge.GetComponent<ConnectionRay>().SetMaterial2Nonactive();                                   
+                                } 
+                                second_edge = null;
+                            } else {
+                                // Generate mirror
+                                // Set the last ray to active
+                                ray_script_3.SetMaterial2Active();
+                                // Generate mirror
+                                GameObject mirror_obj = GenerateMirror(anchor_list[0], anchor_list[1],
+                                                                       anchor_list[2], false);
+                                mirror_obj.transform.parent = MirrorRoot.transform;
+                                // Add mirror to rays' mirror list
+                                ray_script_1.MirrorList.Add(mirror_obj.name);
+                                ray_script_2.MirrorList.Add(mirror_obj.name);
+                                ray_script_3.MirrorList.Add(mirror_obj.name);
+                                // Reset to original
+                                first_edge = null;
                                 second_edge = null;
                             }
+                        } else {
+                            if (first_edge && first_edge.GetComponent<ConnectionRay>().MirrorList.Count == 0) {
+                                first_edge.GetComponent<ConnectionRay>().SetMaterial2Nonactive();                               
+                            }
+                            first_edge = null;
+                            if (second_edge && second_edge.GetComponent<ConnectionRay>().MirrorList.Count == 0) {
+                                second_edge.GetComponent<ConnectionRay>().SetMaterial2Nonactive();
+                            }
+                            second_edge = null;
                         }
                     }
                 }                
             } else {
                 if (first_edge && first_edge.GetComponent<ConnectionRay>().MirrorList.Count == 0) {
                     first_edge.GetComponent<ConnectionRay>().SetMaterial2Nonactive();
-                    first_edge = null;
                 }
+                first_edge = null;
                 if (second_edge && second_edge.GetComponent<ConnectionRay>().MirrorList.Count == 0) {
                     second_edge.GetComponent<ConnectionRay>().SetMaterial2Nonactive();
-                    second_edge = null;
                 }
+                second_edge = null;
             }
         } 
     }
