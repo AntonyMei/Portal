@@ -7,8 +7,18 @@ public class MirrorController : MonoBehaviour
     [Header("Mirror Settings")]
     [Tooltip("The material for a non-camera mirror")]
     public Material NonCameraMirrorMaterial;
+    [Tooltip("The camera prefab for a camera-based mirror")]
+    public GameObject CameraPrefab;
+    [Tooltip("The resolution of camera-based mirror "), Range(256, 1024)]
+    public int XResolution = 1024;
+    [Tooltip("The resolution of camera-based mirror "), Range(256, 1024)]
+    public int YResolution = 1024;
     [Tooltip("The prefab of ray")]
     public GameObject RayPrefab;
+
+    [Header("Dependencies")]
+    [Tooltip("The camera attached to the player")]
+    public Camera PlayerCamera;
 
     // Test examples
     public GameObject obj1;
@@ -89,6 +99,14 @@ public class MirrorController : MonoBehaviour
         return mirror;
     }
 
+    
+    /// <summary>
+    /// Generate a mirror that is rendered using a full-reflective material
+    /// </summary>
+    /// <param name="first_vertex"> The first vertex of the mirror </param>
+    /// <param name="second_vertex"> The second vertex of the mirror </param>
+    /// <param name="third_vertex"> The third vertex of the mirror </param>
+    /// <returns></returns>
     public GameObject GenerateCameraBasedMirror(GameObject first_vertex,
         GameObject second_vertex, GameObject third_vertex) {
         GameObject mirror = new GameObject();
@@ -105,15 +123,34 @@ public class MirrorController : MonoBehaviour
         mirror.transform.position = mirror_position;
         mirror.transform.tag = "Mirror";
         mirror.layer = 9;
+        // Add camera scripts
+        GameObject camera_obj = Instantiate(CameraPrefab);
+        camera_obj.transform.parent = mirror.transform;
+        MirrorRenderer mirror_renderer = camera_obj.GetComponent<MirrorRenderer>();
+        mirror_renderer.mirrorPlane = mirror;
+        MirrorManager mirror_manager = camera_obj.GetComponent<MirrorManager>();
+        mirror_manager.mirrorPlane = mirror;
+        mirror_manager.mainCamera = PlayerCamera;
+        // Set render texture
+        RenderTextureDescriptor descriptor = 
+            new RenderTextureDescriptor(XResolution, YResolution);
+        RenderTexture render_texture = new RenderTexture(descriptor);
+        camera_obj.GetComponent<Camera>().targetTexture = render_texture;
+        // Creat material
+        Material camera_based_mirror_material = 
+            new Material(Shader.Find("Unlit/Texture"));
+        camera_based_mirror_material.mainTexture = render_texture;
+        camera_based_mirror_material.mainTextureOffset = new Vector2(1, 0);
+        camera_based_mirror_material.mainTextureScale = new Vector2(-1, 1);
         // Set renderer
         MeshFilter mesh_filter = mirror.AddComponent<MeshFilter>();
         mesh_filter.mesh = CreateFractureMesh(first_vertex_position_relative,
              second_vertex_position_relative, third_vertex_position_relative);
         MeshRenderer mesh_renderer = mirror.AddComponent<MeshRenderer>();
-        mesh_renderer.material = NonCameraMirrorMaterial;
+        mesh_renderer.material = camera_based_mirror_material;
         // Set collider
         mirror.AddComponent<MeshCollider>();
-        // Add Script
+        // Add mirror script
         Mirror mirror_script = mirror.AddComponent<Mirror>();
         mirror_script.IsStatic = false;
         mirror_script.RayPrefab = RayPrefab;
