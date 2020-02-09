@@ -30,8 +30,8 @@ public class GunController : MonoBehaviour
             // If the ray hits a mirror
             if(hit_info.distance != 0 && hit_info.transform.tag == "Mirror") {
                 Mirror mirror_script = hit_info.transform.GetComponent<Mirror>();
-                mirror_script.GenerateOutputRay(ray.direction, hit_info.point, 
-                    ReflectedRayLength, ReflectedRayRadius);
+                mirror_script.GenerateOutputRay(ray.direction, hit_info.point,
+                    ReflectedRayLength, ReflectedRayRadius, hit_info.normal);
                 last_mirror = mirror_script;
             }
         }

@@ -84,6 +84,38 @@ public class Mirror : MonoBehaviour
     }
 
     /// <summary>
+    /// <para> Generate the output ray </para>
+    /// <para> The ray is stored in output_ray </para>
+    /// <para> For fracture based mirrors, must call this function to ensur a correct normal vector </para>
+    /// </summary>
+    /// <param name="input"> The input ray's direction </param>
+    /// <param name="collision_point"> The point where the input ray hits the mirror </param>
+    /// <param name="output_lengh"> The maxium length of the output ray </param>
+    /// <param name="output_radius"> The radius of output ray </param>
+    /// <param name="normal_vector"> The normal vector of the mirror </param>
+    public void GenerateOutputRay(Vector3 input, Vector3 collision_point,
+        float output_lengh, float output_radius, Vector3 normal_vector) {
+        // Generate gameobject
+        GameObject ray_obj = Instantiate(RayPrefab);
+        ray_obj.name = $"Mirror{gameObject.name}ray";
+        ray_obj.tag = "Ray";
+        // Calculate output direction
+        Vector3 normal = Vector3.Project(input, normal_vector);
+        Vector3 tangent = input - normal;
+        Vector3 output_dir = tangent - normal;
+        output_dir.Normalize();
+        // Calculate output endpoint
+        Vector3 end_point = collision_point + output_lengh * output_dir;
+        // Rneder Ray
+        RayRenderer renderer = ray_obj.GetComponent<RayRenderer>();
+        renderer.Refresh(collision_point, end_point, output_radius);
+        renderer.StartRendering();
+        // Set output
+        has_output = true;
+        output_ray = ray_obj;
+    }
+
+    /// <summary>
     /// Destroys the output ray
     /// </summary>
     public void DestroyOutputRay() {

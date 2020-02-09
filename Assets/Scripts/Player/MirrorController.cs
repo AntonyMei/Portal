@@ -5,8 +5,10 @@ using UnityEngine;
 public class MirrorController : MonoBehaviour
 {
     [Header("Mirror Settings")]
-    [Tooltip("The material for a non-rendering mirror")]
-    public Material NonrenderingMirrorMaterial;
+    [Tooltip("The material for a non-camera mirror")]
+    public Material NonCameraMirrorMaterial;
+    [Tooltip("The prefab of ray")]
+    public GameObject RayPrefab;
 
     // Test examples
     public GameObject obj1;
@@ -16,7 +18,7 @@ public class MirrorController : MonoBehaviour
     /// <summary>
     /// <para> Creates a triangle that is rendered on both sides </para>
     /// </summary>
-    /// <returns> The mesh of this  </returns>
+    /// <returns> The mesh of this fracture </returns>
     public static Mesh CreateFractureMesh(Vector3 vertex1, Vector3 vertex2, Vector3 vertex3) {
         Mesh frac = new Mesh();
         // Set the vertices of the mesh
@@ -38,8 +40,19 @@ public class MirrorController : MonoBehaviour
         return frac;
     }
 
+    /// <summary>
+    /// Generate a mirror that is rendered using a full-reflective material
+    /// </summary>
+    /// <param name="first_vertex"> The first vertex of the mirror </param>
+    /// <param name="second_vertex"> The second vertex of the mirror </param>
+    /// <param name="third_vertex"> The third vertex of the mirror </param>
+    /// <param name="is_static"> 
+    /// Is the mirror static, non-static mirrors will be attached MirrorUpdateMesh 
+    /// that automatically refreshed its mesh every frame 
+    /// </param>
+    /// <returns></returns>
     public GameObject GenerateMirror(GameObject first_vertex, 
-        GameObject second_vertex, GameObject third_vertex) {
+        GameObject second_vertex, GameObject third_vertex, bool is_static) {
         GameObject mirror = new GameObject();
         // Calculate vertex position
         Vector3 first_vertex_position = first_vertex.transform.position;
@@ -59,17 +72,55 @@ public class MirrorController : MonoBehaviour
         mesh_filter.mesh = CreateFractureMesh(first_vertex_position_relative, 
              second_vertex_position_relative, third_vertex_position_relative);
         MeshRenderer mesh_renderer = mirror.AddComponent<MeshRenderer>();
-        mesh_renderer.material = NonrenderingMirrorMaterial;
+        mesh_renderer.material = NonCameraMirrorMaterial;
         // Set collider
         mirror.AddComponent<MeshCollider>();
         // Add Script
-        //
-        //
-        //
+        Mirror mirror_script = mirror.AddComponent<Mirror>();
+        mirror_script.IsStatic = is_static;
+        mirror_script.RayPrefab = RayPrefab;
+        // Add auto update if necessary
+        if (!is_static) {
+            MirrorUpdateMesh mesh_updater =  mirror.AddComponent<MirrorUpdateMesh>();
+            mesh_updater.Vertex1 = first_vertex;
+            mesh_updater.Vertex2 = second_vertex;
+            mesh_updater.Vertex3 = third_vertex;
+        }
         return mirror;
     }
-    
+
+    public GameObject GenerateCameraBasedMirror(GameObject first_vertex,
+        GameObject second_vertex, GameObject third_vertex) {
+        GameObject mirror = new GameObject();
+        // Calculate vertex position
+        Vector3 first_vertex_position = first_vertex.transform.position;
+        Vector3 second_vertex_position = second_vertex.transform.position;
+        Vector3 third_vertex_position = third_vertex.transform.position;
+        Vector3 mirror_position = (first_vertex_position + second_vertex_position + third_vertex_position) / 3;
+        Vector3 first_vertex_position_relative = first_vertex_position - mirror_position;
+        Vector3 second_vertex_position_relative = second_vertex_position - mirror_position;
+        Vector3 third_vertex_position_relative = third_vertex_position - mirror_position;
+        // Set transform
+        mirror.name = $"Mirror{first_vertex.name}to{second_vertex.name}to{third_vertex.name}";
+        mirror.transform.position = mirror_position;
+        mirror.transform.tag = "Mirror";
+        mirror.layer = 9;
+        // Set renderer
+        MeshFilter mesh_filter = mirror.AddComponent<MeshFilter>();
+        mesh_filter.mesh = CreateFractureMesh(first_vertex_position_relative,
+             second_vertex_position_relative, third_vertex_position_relative);
+        MeshRenderer mesh_renderer = mirror.AddComponent<MeshRenderer>();
+        mesh_renderer.material = NonCameraMirrorMaterial;
+        // Set collider
+        mirror.AddComponent<MeshCollider>();
+        // Add Script
+        Mirror mirror_script = mirror.AddComponent<Mirror>();
+        mirror_script.IsStatic = false;
+        mirror_script.RayPrefab = RayPrefab;
+        return mirror;
+    }
+
     void Start() {
-        GenerateMirror(obj1, obj2, obj3);
+        GenerateMirror(obj1, obj2, obj3, false);
     }
 }
