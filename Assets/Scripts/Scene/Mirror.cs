@@ -198,6 +198,7 @@ public class Mirror : MonoBehaviour
         ray_entity.MaxReflectionCount = maxium_reflection_count;
         ray_entity.Origin = collision_point + 0.1f * output_dir;
         ray_entity.Direction = output_dir;
+        ray_entity.RayPrefab = RayPrefab;
         // Destroy the last ray
         DestroyOutputRay();
         // Set output

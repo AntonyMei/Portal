@@ -18,7 +18,7 @@ public class GunController : MonoBehaviour
 
     // The mirror that
     private Mirror last_mirror = null;
-    private Vector3 LastHitPoint = new Vector3();
+    private Vector3 last_hit_point = new Vector3();
 
     void Update() {
         // Check for interactions
@@ -30,13 +30,21 @@ public class GunController : MonoBehaviour
             Physics.Raycast(ray, out hit_info);
             // If the ray hits a mirror
             if(hit_info.distance != 0 && hit_info.transform.tag == "Mirror") {
+                // If mirror changes, delete the last ray
+                if (last_mirror && hit_info.transform != last_mirror.transform) {
+                    // Destroys the ray in the last frame
+                    if (last_mirror) {
+                        last_mirror.DestroyOutputRay();
+                        last_mirror = null;
+                    }
+                }
                 // If the hit point changes, then refresh
-                if (hit_info.point !=  LastHitPoint) {
+                if (hit_info.point !=  last_hit_point) {
                     Mirror mirror_script = hit_info.transform.GetComponent<Mirror>();
                     mirror_script.GenerateOutputRay(ray.direction, hit_info.point,
                                             ReflectedRayLength, ReflectedRayRadius,
                                             hit_info.normal, MaxReflectionCount);
-                    LastHitPoint = hit_info.point;
+                    last_hit_point = hit_info.point;
                     last_mirror = mirror_script;
                 }
             } else {
