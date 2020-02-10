@@ -28,6 +28,8 @@ public class MirrorController : MonoBehaviour
     
     [Tooltip("The mirror's root"), HideInInspector]
     public GameObject MirrorRoot;
+    [Tooltip("The stack that stores all the generated mirrors"), HideInInspector]
+    public Stack<GameObject> MirrorStack = new Stack<GameObject>();
     // The first and second edge
     private GameObject first_edge = null;
     private GameObject second_edge = null;
@@ -90,6 +92,7 @@ public class MirrorController : MonoBehaviour
                             if (ray_script_1.MirrorList.Contains(name1) || ray_script_1.MirrorList.Contains(name2)
                              || ray_script_1.MirrorList.Contains(name3) || ray_script_1.MirrorList.Contains(name4)
                              || ray_script_1.MirrorList.Contains(name5) || ray_script_1.MirrorList.Contains(name6)) {
+                                // If first or second edge is selected, cancel the selection
                                 if (first_edge && first_edge.GetComponent<ConnectionRay>().MirrorList.Count == 0) {
                                     first_edge.GetComponent<ConnectionRay>().SetMaterial2Nonactive();
                                 }
@@ -110,11 +113,19 @@ public class MirrorController : MonoBehaviour
                                 ray_script_1.MirrorList.Add(mirror_obj.name);
                                 ray_script_2.MirrorList.Add(mirror_obj.name);
                                 ray_script_3.MirrorList.Add(mirror_obj.name);
+                                // Add rays to mirror's ray list
+                                Mirror mirror_script = mirror_obj.GetComponent<Mirror>();
+                                mirror_script.FirstEdge = first_edge;
+                                mirror_script.SecondEdge = second_edge;
+                                mirror_script.ThirdEdge = hit_info.transform.gameObject;
+                                // Add the mirror to stack
+                                MirrorStack.Push(mirror_obj);
                                 // Reset to original
                                 first_edge = null;
                                 second_edge = null;
                             }
                         } else {
+                            // If first or second edge is selected, cancel the selection
                             if (first_edge && first_edge.GetComponent<ConnectionRay>().MirrorList.Count == 0) {
                                 first_edge.GetComponent<ConnectionRay>().SetMaterial2Nonactive();                               
                             }
@@ -127,6 +138,7 @@ public class MirrorController : MonoBehaviour
                     }
                 }                
             } else {
+                // If first or second edge is selected, cancel the selection
                 if (first_edge && first_edge.GetComponent<ConnectionRay>().MirrorList.Count == 0) {
                     first_edge.GetComponent<ConnectionRay>().SetMaterial2Nonactive();
                 }
@@ -136,7 +148,50 @@ public class MirrorController : MonoBehaviour
                 }
                 second_edge = null;
             }
-        } 
+        }
+        // Q is the key to delete last mirror
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            if (!first_edge && !second_edge && MirrorStack.Count != 0) {
+                // Get last added mirror
+                GameObject last_mirror = MirrorStack.Pop();
+                // Delete the mirror from its three edges
+                Mirror mirror_script = last_mirror.GetComponent<Mirror>();
+                ConnectionRay edge1_script = mirror_script.FirstEdge.GetComponent<ConnectionRay>();
+                ConnectionRay edge2_script = mirror_script.SecondEdge.GetComponent<ConnectionRay>();
+                ConnectionRay edge3_script = mirror_script.ThirdEdge.GetComponent<ConnectionRay>();
+                edge1_script.MirrorList.Remove(last_mirror.name);
+                edge2_script.MirrorList.Remove(last_mirror.name);
+                edge3_script.MirrorList.Remove(last_mirror.name);
+                // Reset renderings
+                if (edge1_script.MirrorList.Count != 0) {
+                    mirror_script.FirstEdge.GetComponent<MeshRenderer>().material = ActiveRayMaterial;
+                } else {
+                    mirror_script.FirstEdge.GetComponent<MeshRenderer>().material = NonactiveRayMaterial;
+                }
+                if (edge2_script.MirrorList.Count != 0) {
+                    mirror_script.SecondEdge.GetComponent<MeshRenderer>().material = ActiveRayMaterial;
+                } else {
+                    mirror_script.SecondEdge.GetComponent<MeshRenderer>().material = NonactiveRayMaterial;
+                }
+                if (edge3_script.MirrorList.Count != 0) {
+                    mirror_script.ThirdEdge.GetComponent<MeshRenderer>().material = ActiveRayMaterial;
+                } else {
+                    mirror_script.ThirdEdge.GetComponent<MeshRenderer>().material = NonactiveRayMaterial;
+                }
+                // Destroy mirror and its ray
+                GameObject.Destroy(last_mirror);
+            } else {
+                // If first or second edge is selected, cancel the selection
+                if (first_edge && first_edge.GetComponent<ConnectionRay>().MirrorList.Count == 0) {
+                    first_edge.GetComponent<ConnectionRay>().SetMaterial2Nonactive();
+                }
+                first_edge = null;
+                if (second_edge && second_edge.GetComponent<ConnectionRay>().MirrorList.Count == 0) {
+                    second_edge.GetComponent<ConnectionRay>().SetMaterial2Nonactive();
+                }
+                second_edge = null;
+            }
+        }
     }
 
     /// <summary>
@@ -203,6 +258,9 @@ public class MirrorController : MonoBehaviour
         Mirror mirror_script = mirror.AddComponent<Mirror>();
         mirror_script.IsStatic = is_static;
         mirror_script.RayPrefab = RayPrefab;
+        mirror_script.Vertex1 = first_vertex;
+        mirror_script.Vertex2 = second_vertex;
+        mirror_script.Vertex3 = third_vertex;
         // Add auto update if necessary
         if (!is_static) {
             MirrorUpdateMesh mesh_updater =  mirror.AddComponent<MirrorUpdateMesh>();

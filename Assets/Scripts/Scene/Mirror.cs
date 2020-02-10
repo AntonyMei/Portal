@@ -9,9 +9,29 @@ public class Mirror : MonoBehaviour
     public bool IsStatic = false;
     [Tooltip("The prefab for ray")]
     public GameObject RayPrefab;
+
+    // The three edges of the mirror
+    [HideInInspector]
+    public GameObject FirstEdge;
+    [HideInInspector]
+    public GameObject SecondEdge;
+    [HideInInspector]
+    public GameObject ThirdEdge;
+
+    // The three vertices of the mirror
+    [HideInInspector]
+    public GameObject Vertex1;
+    [HideInInspector]
+    public GameObject Vertex2;
+    [HideInInspector]
+    public GameObject Vertex3;
     
+    // The normal vector of the mirror
     private Vector3 normal_vector = new Vector3();
+    // If the mirror has output
     private bool has_output = false;
+    // The output ray of the mirror
+    [SerializeField]
     private GameObject output_ray = null;
 
     /// <summary>
@@ -131,9 +151,15 @@ public class Mirror : MonoBehaviour
         // For static mirrors, normal vectors must be set automatically through calling SetNormalVector(Vector3)
         if (!IsStatic) RefreshNormalVector();
     }
+
     private void Update() {
         // If the mirror is non-static, the normal vector will be refreshed when mirror enabled and in every frame
         // For static mirrors, normal vectors must be set automatically through calling SetNormalVector(Vector3)
         if (!IsStatic) RefreshNormalVector();
+    }
+
+    private void OnDestroy() {
+        // Destroys the output ray
+        DestroyOutputRay();
     }
 }
