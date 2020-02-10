@@ -81,6 +81,7 @@
      <Compile Include="Assets\Scripts\Scene\MirrorRenderer.cs" />
      <Compile Include="Assets\Scripts\Scene\MirrorUpdateMesh.cs" />
      <Compile Include="Assets\Scripts\Scene\Portal.cs" />
+     <Compile Include="Assets\Scripts\Scene\RayEntity.cs" />
      <Compile Include="Assets\Scripts\Scene\RayRenderer.cs" />
      <Compile Include="Assets\Scripts\Scene\SceneManager.cs" />
      <Compile Include="Assets\Scripts\Scene\Trampoline.cs" />

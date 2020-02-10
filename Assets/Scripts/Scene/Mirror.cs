@@ -93,11 +93,21 @@ public class Mirror : MonoBehaviour
         Vector3 output_dir = tangent - normal;
         output_dir.Normalize();
         // Calculate output endpoint
-        Vector3 end_point = collision_point + output_lengh * output_dir;
+        RaycastHit hit_info = new RaycastHit();
+        Ray detection_ray = new Ray(collision_point, output_dir);
+        Physics.Raycast(detection_ray, out hit_info);
+        Vector3 end_point = new Vector3();
+        if (hit_info.distance == 0) {
+            end_point = collision_point + output_dir * output_lengh;
+        } else {
+            end_point = collision_point + output_dir * Mathf.Min(output_lengh, hit_info.distance);
+        }
         // Rneder Ray
         RayRenderer renderer = ray_obj.GetComponent<RayRenderer>();
         renderer.Refresh(collision_point, end_point, output_radius);
         renderer.StartRendering();
+        // Destroy the last ray
+        DestroyOutputRay();
         // Set output
         has_output = true;
         output_ray = ray_obj;
@@ -125,11 +135,71 @@ public class Mirror : MonoBehaviour
         Vector3 output_dir = tangent - normal;
         output_dir.Normalize();
         // Calculate output endpoint
-        Vector3 end_point = collision_point + output_lengh * output_dir;
+        RaycastHit hit_info = new RaycastHit();
+        Ray detection_ray = new Ray(collision_point, output_dir);
+        Physics.Raycast(detection_ray, out hit_info);
+        Vector3 end_point = new Vector3();
+        if (hit_info.distance == 0) {
+            end_point = collision_point + output_dir * output_lengh;
+        } else {
+            end_point = collision_point + output_dir * Mathf.Min(output_lengh, hit_info.distance);
+        }
         // Rneder Ray
         RayRenderer renderer = ray_obj.GetComponent<RayRenderer>();
         renderer.Refresh(collision_point, end_point, output_radius);
         renderer.StartRendering();
+        // Destroy the last ray
+        DestroyOutputRay();
+        // Set output
+        has_output = true;
+        output_ray = ray_obj;
+    }
+
+    /// <summary>
+    /// <para> Generate the output ray </para>
+    /// <para> The ray is stored in output_ray </para>
+    /// <para> For fracture based mirrors, must call this function to ensure a correct normal vector </para>
+    /// <para> This function add RayEntity to generated rays </para>
+    /// </summary>
+    /// <param name="input"> The input ray's direction </param>
+    /// <param name="collision_point"> The point where the input ray hits the mirror </param>
+    /// <param name="output_lengh"> The maxium length of the output ray </param>
+    /// <param name="output_radius"> The radius of output ray </param>
+    /// <param name="normal_vector"> The normal vector of the mirror </param>
+    /// <param name="maxium_reflection_count"> The maxium reflection count of the ray </param>
+    public void GenerateOutputRay(Vector3 input, Vector3 collision_point,
+        float output_lengh, float output_radius, Vector3 normal_vector,
+        int maxium_reflection_count) {
+        // Generate gameobject
+        GameObject ray_obj = Instantiate(RayPrefab);
+        ray_obj.name = $"Mirror{gameObject.name}ray";
+        ray_obj.tag = "Ray";
+        // Calculate output direction
+        Vector3 normal = Vector3.Project(input, normal_vector);
+        Vector3 tangent = input - normal;
+        Vector3 output_dir = tangent - normal;
+        output_dir.Normalize();
+        // Calculate output endpoint
+        RaycastHit hit_info = new RaycastHit();
+        Ray detection_ray = new Ray(collision_point, output_dir);
+        Physics.Raycast(detection_ray, out hit_info);
+        Vector3 end_point = new Vector3();
+        if (hit_info.distance == 0) {
+            end_point = collision_point + output_dir * output_lengh;
+        } else {
+            end_point = collision_point + output_dir * Mathf.Min(output_lengh, hit_info.distance);
+        }
+        // Rneder Ray
+        RayRenderer renderer = ray_obj.GetComponent<RayRenderer>();
+        renderer.Refresh(collision_point, end_point, output_radius);
+        renderer.StartRendering();
+        // Add ray entity
+        RayEntity ray_entity = ray_obj.AddComponent<RayEntity>();
+        ray_entity.MaxReflectionCount = maxium_reflection_count;
+        ray_entity.Origin = collision_point + 0.1f * output_dir;
+        ray_entity.Direction = output_dir;
+        // Destroy the last ray
+        DestroyOutputRay();
         // Set output
         has_output = true;
         output_ray = ray_obj;
