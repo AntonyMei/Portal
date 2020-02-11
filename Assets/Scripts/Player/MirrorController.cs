@@ -109,6 +109,7 @@ public class MirrorController : MonoBehaviour
                                 GameObject mirror_obj = GenerateMirror(anchor_list[0], anchor_list[1],
                                                                        anchor_list[2], false);
                                 mirror_obj.transform.parent = MirrorRoot.transform;
+                                mirror_obj.layer = 11; // Mirror
                                 // Set MeshCollider to convex
                                 //MeshCollider mesh_collider = mirror_obj.GetComponent<MeshCollider>();
                                 //mesh_collider.convex = true;

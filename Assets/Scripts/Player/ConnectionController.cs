@@ -102,6 +102,10 @@ public class ConnectionController : MonoBehaviour
                             ConnectionRay connection_ray = ray_obj.AddComponent<ConnectionRay>();
                             connection_ray.ActiveMaterial = ActiveRayMaterial;
                             connection_ray.NonactiveMaterial = NonactiveRayMaterial;
+                            // Add the ray to the map in anchor group
+                            AnchorGroup anchor_group = hit_info.transform.parent.GetComponent<AnchorGroup>();
+                            anchor_group.AnchorMap[first_anchor_script.AnchorID, second_anchor_script.AnchorID] = true;
+                            anchor_group.AnchorMap[second_anchor_script.AnchorID, first_anchor_script.AnchorID] = true;
                             // Add ray to lists
                             ray_list.Push(ray_obj);
                             first_anchor_script.RayList.Add(ray_id_1);
@@ -140,6 +144,10 @@ public class ConnectionController : MonoBehaviour
                 if (second_anchor_script.RayList.Contains(ray_id_2)) {
                     second_anchor_script.RayList.Remove(ray_id_2);
                 }
+                // Remove ray from the anchor map in anchor group
+                AnchorGroup anchor_group = ray_renderer.Start.transform.parent.GetComponent<AnchorGroup>();
+                anchor_group.AnchorMap[first_anchor_script.AnchorID, second_anchor_script.AnchorID] = false;
+                anchor_group.AnchorMap[second_anchor_script.AnchorID, first_anchor_script.AnchorID] = false;
                 // Reset renderings
                 if (first_anchor_script.RayList.Count == 0) first_anchor_script.SetMaterial2Nonactive();
                 if (second_anchor_script.RayList.Count == 0) second_anchor_script.SetMaterial2Nonactive();

@@ -10,6 +10,12 @@ public class RayEntity : MonoBehaviour
     public Vector3 Origin;
     [Tooltip("The direction of this ray"), HideInInspector]
     public Vector3 Direction;
+    [Tooltip("The maxium length of this ray"), HideInInspector]
+    public float MaxLength;
+    [Tooltip("The actual length of this ray"), HideInInspector]
+    public float ActualLength;
+    [Tooltip("The radius of this ray"), HideInInspector]
+    public float Radius;
 
     [HideInInspector]
     public GameObject RayPrefab;
@@ -20,13 +26,13 @@ public class RayEntity : MonoBehaviour
         // Detect what object this ray hits
         RaycastHit hit_info = new RaycastHit();
         Ray detection_ray = new Ray(Origin, Direction);
-        Physics.Raycast(detection_ray, out hit_info);
+        Physics.Raycast(detection_ray, out hit_info, MaxLength, 1 << 11); // 1 << 11 layer 11
         if (hit_info.distance != 0 && hit_info.transform.tag == "Mirror") {
             // If the hit point changes, then refresh
             if (hit_info.point != last_hit_point) {
                 GameObject.Destroy(next);
-                next = GenerateNextRay(detection_ray.direction, hit_info.point,
-                    300, 0.1f, hit_info.normal, MaxReflectionCount - 1);
+                next = GenerateNextRay(detection_ray.direction, hit_info.point, MaxLength - ActualLength,
+                    Radius, hit_info.normal, MaxReflectionCount - 1);
                 last_hit_point = hit_info.point;
             }
         } else {
@@ -48,12 +54,12 @@ public class RayEntity : MonoBehaviour
     /// </summary>
     /// <param name="input"> The input ray's direction </param>
     /// <param name="collision_point"> The point where the input ray hits the mirror </param>
-    /// <param name="output_lengh"> The maxium length of the output ray </param>
+    /// <param name="max_output_length"> The maxium length of the output ray </param>
     /// <param name="output_radius"> The radius of output ray </param>
     /// <param name="normal_vector"> The normal vector of the mirror </param>
     /// <param name="maxium_reflection_count"> The maxium reflection count of the ray </param>
     public GameObject GenerateNextRay(Vector3 input, Vector3 collision_point,
-        float output_lengh, float output_radius, Vector3 normal_vector,
+        float max_output_length, float output_radius, Vector3 normal_vector,
         int maxium_reflection_count) {
         // Generate gameobject
         GameObject ray_obj = Instantiate(RayPrefab);
@@ -69,10 +75,13 @@ public class RayEntity : MonoBehaviour
         Ray detection_ray = new Ray(collision_point, output_dir);
         Physics.Raycast(detection_ray, out hit_info);
         Vector3 end_point = new Vector3();
+        float ray_length;
         if (hit_info.distance == 0) {
-            end_point = collision_point + output_dir * output_lengh;
+            ray_length = max_output_length;
+            end_point = collision_point + output_dir * ray_length;
         } else {
-            end_point = collision_point + output_dir * Mathf.Min(output_lengh, hit_info.distance);
+            ray_length = Mathf.Min(max_output_length, hit_info.distance);
+            end_point = collision_point + output_dir * ray_length;
         }
         // Rneder Ray
         RayRenderer renderer = ray_obj.GetComponent<RayRenderer>();
@@ -83,6 +92,9 @@ public class RayEntity : MonoBehaviour
         ray_entity.MaxReflectionCount = maxium_reflection_count;
         ray_entity.Origin = collision_point + 0.1f * output_dir;
         ray_entity.Direction = output_dir;
+        ray_entity.MaxLength = max_output_length;
+        ray_entity.ActualLength = ray_length;
+        ray_entity.Radius = output_radius;
         ray_entity.RayPrefab = RayPrefab;
         // Returns the ray
         return ray_obj;

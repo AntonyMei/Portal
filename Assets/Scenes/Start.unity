@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 83435640}
   - component: {fileID: 83435644}
   - component: {fileID: 83435645}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Cube
   m_TagString: Mirror
   m_Icon: {fileID: 0}
@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 208376499}
   - component: {fileID: 208376498}
   - component: {fileID: 208376497}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,6 +479,7 @@ MonoBehaviour:
   HighlightMaterial: {fileID: 2100000, guid: eb4d2fe137be99e40aa5e1f81ef24f33, type: 2}
   RayList: []
   MeshRenderer: {fileID: 0}
+  AnchorID: 0
 --- !u!1 &292403033
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,6 +536,7 @@ MonoBehaviour:
   HighlightMaterial: {fileID: 2100000, guid: eb4d2fe137be99e40aa5e1f81ef24f33, type: 2}
   RayList: []
   MeshRenderer: {fileID: 0}
+  AnchorID: 3
 --- !u!114 &485827188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -555,6 +557,7 @@ MonoBehaviour:
   HighlightMaterial: {fileID: 2100000, guid: eb4d2fe137be99e40aa5e1f81ef24f33, type: 2}
   RayList: []
   MeshRenderer: {fileID: 0}
+  AnchorID: 1
 --- !u!1 &730770179
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,7 +571,7 @@ GameObject:
   - component: {fileID: 730770183}
   - component: {fileID: 730770182}
   - component: {fileID: 730770181}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Cube (1)
   m_TagString: Mirror
   m_Icon: {fileID: 0}
@@ -923,6 +926,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1162363070}
+  - component: {fileID: 1162363071}
   m_Layer: 0
   m_Name: AnchorGroup
   m_TagString: Untagged
@@ -949,6 +953,19 @@ Transform:
   m_Father: {fileID: 292403034}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1162363071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162363069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f7c0a703293b724996d930d49526c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnchorCount: 0
 --- !u!114 &1286514251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -969,6 +986,7 @@ MonoBehaviour:
   HighlightMaterial: {fileID: 2100000, guid: eb4d2fe137be99e40aa5e1f81ef24f33, type: 2}
   RayList: []
   MeshRenderer: {fileID: 0}
+  AnchorID: 4
 --- !u!114 &1403414737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -989,6 +1007,7 @@ MonoBehaviour:
   HighlightMaterial: {fileID: 2100000, guid: eb4d2fe137be99e40aa5e1f81ef24f33, type: 2}
   RayList: []
   MeshRenderer: {fileID: 0}
+  AnchorID: 2
 --- !u!1 &1653761346
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,7 +1020,7 @@ GameObject:
   - component: {fileID: 1653761350}
   - component: {fileID: 1653761349}
   - component: {fileID: 1653761348}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1509,7 +1528,7 @@ GameObject:
   - component: {fileID: 1890629029}
   - component: {fileID: 1890629028}
   - component: {fileID: 1890629032}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Mirror
   m_TagString: Mirror
   m_Icon: {fileID: 0}
@@ -2019,7 +2038,12 @@ MonoBehaviour:
   ReflectedRayLength: 300
   ReflectedRayRadius: 0.1
   MaxReflectionCount: 10
+  AmplifierRayLengthPerAnchor: 300
+  AmplifiedRayRadiusPerAnchor: 0.2
+  AmplifiedRayReflectionCountPerAnchor: 10
   PlayerCamera: {fileID: 1954851986628587406}
+  RayPrefab: {fileID: 8415471910808394389, guid: 28d88008c4ebd7f4bbcd51a90cf56726,
+    type: 3}
 --- !u!114 &1954851986516179211
 MonoBehaviour:
   m_ObjectHideFlags: 0

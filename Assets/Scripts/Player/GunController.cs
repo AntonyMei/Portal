@@ -12,15 +12,30 @@ public class GunController : MonoBehaviour
     [Tooltip("The maximum time of reflection"), HideInInspector]
     public int MaxReflectionCount = 10;
 
+    [Header("Amplifier Settings")]
+    [Tooltip("The maximum length of amplified rays (per anchor)")]
+    public float AmplifierRayLengthPerAnchor = 300f;
+    [Tooltip("The radius of amplified rays (per anchor)")]
+    public float AmplifiedRayRadiusPerAnchor = 0.2f;
+    [Tooltip("The maxium reflection count (per anchor)")]
+    public int AmplifiedRayReflectionCountPerAnchor = 10;
+
     [Header("Dependencies")]
     [Tooltip("The camera attached to the player")]
     public Camera PlayerCamera;
+    [Tooltip("The prefab of ray")]
+    public GameObject RayPrefab;
 
     // The mirror that
     private Mirror last_mirror = null;
     private Vector3 last_hit_point = new Vector3();
+    // The last amplifier ray
+    private GameObject last_amplifier_ray = null;
 
     void Update() {
+        if (Input.GetKeyDown(KeyCode.Mouse0)) {
+            if (last_amplifier_ray) GameObject.Destroy(last_amplifier_ray);
+        }
         // Check for interactions
         if (Input.GetKey(KeyCode.Mouse0)) {
             // Cast a virtual ray to detect
@@ -29,7 +44,7 @@ public class GunController : MonoBehaviour
                               PlayerCamera.transform.forward);
             Physics.Raycast(ray, out hit_info);
             // If the ray hits a mirror
-            if(hit_info.distance != 0 && hit_info.transform.tag == "Mirror") {
+            if (hit_info.distance != 0 && hit_info.transform.tag == "Mirror") {
                 // If mirror changes, delete the last ray
                 if (last_mirror && hit_info.transform != last_mirror.transform) {
                     // Destroys the ray in the last frame
@@ -54,6 +69,51 @@ public class GunController : MonoBehaviour
                     last_mirror = null;
                 }
             }
+            // If the ray hit an anchor
+            if (hit_info.distance != 0 && hit_info.transform.tag == "Anchor") {
+                AnchorGroup anchor_group = hit_info.transform.parent.GetComponent<AnchorGroup>();
+                Vector3 mass_center =
+                    anchor_group.GetMassCenter(hit_info.transform.GetSiblingIndex(), out int anchor_count);
+                if (anchor_count != 1) {
+                    if (last_amplifier_ray) GameObject.Destroy(last_amplifier_ray);
+                    GameObject amplifier_ray = Instantiate(RayPrefab);
+                    amplifier_ray.name = "AmplifierRay";
+                    RayRenderer ray_renderer = amplifier_ray.GetComponent<RayRenderer>();
+                    // Calculate start and direction
+                    Vector3 start = hit_info.transform.position;
+                    Vector3 direction = mass_center - start;
+                    direction.Normalize();
+                    // Calculate end
+                    RaycastHit hit_info_2 = new RaycastHit();
+                    Ray detection_ray = new Ray(start, direction);
+                    float max_length = AmplifierRayLengthPerAnchor * anchor_count;
+                    Physics.Raycast(detection_ray, out hit_info_2, max_length, 1 << 11); // 1 << 11 layer 11
+                    Vector3 end;
+                    float actual_ray_length;
+                    if (hit_info_2.distance == 0) {
+                        actual_ray_length = max_length;
+                        end = start + actual_ray_length * direction;
+                    } else {
+                        actual_ray_length = Mathf.Min(hit_info_2.distance, max_length);
+                        end = start + actual_ray_length * direction;
+                    }
+                    float radius = AmplifiedRayRadiusPerAnchor * anchor_count;
+                    // Rendering
+                    ray_renderer.Refresh(start, end, radius);
+                    ray_renderer.StartRendering();
+                    // Add script
+                    RayEntity ray_entity = amplifier_ray.AddComponent<RayEntity>();
+                    ray_entity.MaxReflectionCount = AmplifiedRayReflectionCountPerAnchor * anchor_count;
+                    ray_entity.Origin = start;
+                    ray_entity.Direction = direction;
+                    ray_entity.MaxLength = max_length;
+                    ray_entity.ActualLength = actual_ray_length;
+                    ray_entity.RayPrefab = RayPrefab;
+                    ray_entity.Radius = radius;
+                    // Save
+                    last_amplifier_ray = amplifier_ray;
+                } 
+            }
         } else {
             // Destroys the ray in the last frame
             if (last_mirror) { 
@@ -62,4 +122,5 @@ public class GunController : MonoBehaviour
             }
         }
     }
+
 }

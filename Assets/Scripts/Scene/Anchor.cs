@@ -17,8 +17,11 @@ public class Anchor : MonoBehaviour
     [Header("Connections")]
     [Tooltip("The list that stores all the rays connected to the anchor")]
     public List<string> RayList = new List<string>();
+
     [Tooltip("The mesh renderer attached to the anchor"), HideInInspector]
     public MeshRenderer MeshRenderer;
+    [Tooltip("The id of this anchor in the group, starts from 0"), HideInInspector]
+    public int AnchorID;
 
     void OnEnable() {
         // Get the MeshRenderer attached
@@ -31,6 +34,8 @@ public class Anchor : MonoBehaviour
         // Change active state
         if (RayList.Count != 0) IsActive = true;
         else IsActive = false;
+        // Get the id of this anchor
+        AnchorID = transform.GetSiblingIndex();
     }
 
     /// <summary>
