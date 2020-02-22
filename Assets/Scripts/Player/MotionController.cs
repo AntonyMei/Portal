@@ -69,7 +69,7 @@ public class MotionController : MonoBehaviour {
         Vector3 top_center = transform.position
             - (CapsuleCollider.height / 2 + CapsuleCollider.radius) * new Vector3(0, 1, 0);
         // It means layers 1 - 10
-        LayerMask ignore_mask = ~(1 << 10);
+        LayerMask ignore_mask = (1 << 10);
         var colliders = Physics.OverlapCapsule(bottom_center, top_center,
             CapsuleCollider.radius, ignore_mask);
         if (colliders.Length != 0) { return true; } else { return false; }
