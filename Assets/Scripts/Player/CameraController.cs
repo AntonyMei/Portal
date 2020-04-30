@@ -39,8 +39,11 @@ public class CameraController : MonoBehaviour {
     [Tooltip("Whether or not to invert our Y axis for mouse input to rotation.")]
     public bool invertY = false;
 
-    void OnEnable() { 
-        RefershCameraRotation();
+    public GameObject Target;
+
+    void OnEnable() {
+        transform.LookAt(Target.transform);
+        //RefershCameraRotation();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
