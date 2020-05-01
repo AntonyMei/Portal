@@ -39,6 +39,15 @@ public class RayEntity : MonoBehaviour
             GameObject.Destroy(next);
             last_hit_point = new Vector3();
         }
+        // Detect whether the ray points at a portal
+        RaycastHit portal_detection_info = new RaycastHit();
+        Ray portal_detection_ray = new Ray(Origin, Direction);
+        Physics.Raycast(portal_detection_ray, 
+            out portal_detection_info, MaxLength, 1 << 12);
+        if (portal_detection_info.distance != 0 &&
+            portal_detection_info.transform.tag == "Portal") {
+            portal_detection_info.transform.GetComponent<PortalActivator>().ActivatePortal(Radius);
+        }
     }
 
     private void OnDestroy() {

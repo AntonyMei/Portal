@@ -114,6 +114,17 @@ public class GunController : MonoBehaviour
                     last_amplifier_ray = amplifier_ray;
                 } 
             }
+            // Detect whether the ray points at a portal
+            RaycastHit portal_detection_info = new RaycastHit();
+            Ray portal_detection_ray = new Ray(PlayerCamera.transform.position,
+                              PlayerCamera.transform.forward);
+            Physics.Raycast(portal_detection_ray,
+                out portal_detection_info, 100f, 1 << 12);
+            if (portal_detection_info.distance != 0 &&
+                portal_detection_info.transform.tag == "Portal")
+            {
+                portal_detection_info.transform.GetComponent<PortalActivator>().ActivatePortal(0.01);
+            }
         } else {
             // Destroys the ray in the last frame
             if (last_mirror) { 

@@ -15,15 +15,17 @@ public class PortalActivator : MonoBehaviour {
     public Material ColumnGlowMaterial;
 
     public void ActivatePortal(double input_strength) {
-        if(input_strength < ActivateThreshold) {
+        if (input_strength < ActivateThreshold) {
             GetComponent<MeshRenderer>().material = HalfActivePortalMaterial;
         } else {
             GetComponent<MeshRenderer>().material = ActivePortalMaterial;
             foreach(GameObject obj in ActivationList) {
                 obj.SetActive(true);
             }
-            LeftColumn.GetComponent<MeshRenderer>().materials[1] = ColumnGlowMaterial;
-            RightColumn.GetComponent<MeshRenderer>().materials[1] = ColumnGlowMaterial;
+            LeftColumn.GetComponent<MeshRenderer>().materials[1].
+                CopyPropertiesFromMaterial(ColumnGlowMaterial);
+            RightColumn.GetComponent<MeshRenderer>().materials[1].
+                CopyPropertiesFromMaterial(ColumnGlowMaterial);
         }
     }
 }
