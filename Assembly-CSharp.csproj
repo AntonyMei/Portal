@@ -74,6 +74,9 @@
      <Compile Include="Assets\Scripts\Player\MirrorController.cs" />
      <Compile Include="Assets\Scripts\Player\MotionController.cs" />
      <Compile Include="Assets\Scripts\Player\RayController.cs" />
+     <Compile Include="Assets\Scripts\RespawnPoint\ForceRespawn.cs" />
+     <Compile Include="Assets\Scripts\RespawnPoint\RespawnController.cs" />
+     <Compile Include="Assets\Scripts\RespawnPoint\RespawnPoint.cs" />
      <Compile Include="Assets\Scripts\Scene\AdditionalGravity.cs" />
      <Compile Include="Assets\Scripts\Scene\Anchor.cs" />
      <Compile Include="Assets\Scripts\Scene\AnchorGroup.cs" />
