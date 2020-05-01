@@ -90,6 +90,7 @@
      <Compile Include="Assets\Scripts\Scene\MirrorUpdateMesh.cs" />
      <Compile Include="Assets\Scripts\Scene\Portal.cs" />
      <Compile Include="Assets\Scripts\Scene\PortalActivator.cs" />
+     <Compile Include="Assets\Scripts\Scene\PortalMoveThrough.cs" />
      <Compile Include="Assets\Scripts\Scene\RayEntity.cs" />
      <Compile Include="Assets\Scripts\Scene\RayRenderer.cs" />
      <Compile Include="Assets\Scripts\Scene\SceneManager.cs" />
