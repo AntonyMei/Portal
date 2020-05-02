@@ -100,6 +100,7 @@
      <None Include="Assets\Imported\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
      <None Include="Assets\Fonts\Documentation\JazzCreateAltKeys_BubbleFont.txt" />
      <None Include="Assets\Imported\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+     <None Include="Assets\Imported\Valencia Fountain\Readme.txt" />
      <None Include="Assets\Imported\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
      <None Include="Assets\Imported\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
      <None Include="Assets\Imported\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
