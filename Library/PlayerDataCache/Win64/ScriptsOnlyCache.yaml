@@ -7,6 +7,7 @@ ScriptsOnlyBuild:
     - AnchorHighlightController
     - CameraController
     - ConnectionController
+    - EndScene
     - ForceRespawn
     - GunController
     - Mirror
@@ -233,107 +234,109 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13556}
     - Class: 114
-      Script: {instanceID: 13600}
+      Script: {instanceID: 13560}
     - Class: 114
-      Script: {instanceID: 13668}
+      Script: {instanceID: 13602}
     - Class: 114
-      Script: {instanceID: 13678}
+      Script: {instanceID: 13670}
     - Class: 114
-      Script: {instanceID: 13788}
+      Script: {instanceID: 13680}
     - Class: 114
-      Script: {instanceID: 13816}
+      Script: {instanceID: 13790}
     - Class: 114
-      Script: {instanceID: 13848}
+      Script: {instanceID: 13818}
     - Class: 114
-      Script: {instanceID: 14022}
+      Script: {instanceID: 13850}
     - Class: 114
-      Script: {instanceID: 14122}
+      Script: {instanceID: 14024}
     - Class: 114
-      Script: {instanceID: 14180}
+      Script: {instanceID: 14124}
     - Class: 114
-      Script: {instanceID: 14220}
+      Script: {instanceID: 14182}
     - Class: 114
-      Script: {instanceID: 14250}
+      Script: {instanceID: 14222}
     - Class: 114
-      Script: {instanceID: 14262}
+      Script: {instanceID: 14252}
     - Class: 114
-      Script: {instanceID: 14292}
+      Script: {instanceID: 14264}
     - Class: 114
-      Script: {instanceID: 14438}
+      Script: {instanceID: 14294}
     - Class: 114
-      Script: {instanceID: 14446}
+      Script: {instanceID: 14440}
     - Class: 114
-      Script: {instanceID: 14654}
+      Script: {instanceID: 14448}
     - Class: 114
-      Script: {instanceID: 14712}
+      Script: {instanceID: 14656}
     - Class: 114
-      Script: {instanceID: 14752}
+      Script: {instanceID: 14714}
     - Class: 114
-      Script: {instanceID: 14756}
+      Script: {instanceID: 14754}
     - Class: 114
-      Script: {instanceID: 14764}
+      Script: {instanceID: 14758}
     - Class: 114
-      Script: {instanceID: 14774}
+      Script: {instanceID: 14766}
     - Class: 114
-      Script: {instanceID: 14786}
+      Script: {instanceID: 14776}
     - Class: 114
-      Script: {instanceID: 14852}
+      Script: {instanceID: 14788}
     - Class: 114
-      Script: {instanceID: 14952}
+      Script: {instanceID: 14854}
     - Class: 114
-      Script: {instanceID: 14998}
+      Script: {instanceID: 14954}
     - Class: 114
-      Script: {instanceID: 15006}
+      Script: {instanceID: 15000}
     - Class: 114
-      Script: {instanceID: 15158}
+      Script: {instanceID: 15008}
     - Class: 114
-      Script: {instanceID: 15432}
+      Script: {instanceID: 15160}
     - Class: 114
-      Script: {instanceID: 15450}
+      Script: {instanceID: 15434}
     - Class: 114
-      Script: {instanceID: 15520}
+      Script: {instanceID: 15452}
     - Class: 114
       Script: {instanceID: 15522}
     - Class: 114
-      Script: {instanceID: 15690}
+      Script: {instanceID: 15524}
     - Class: 114
-      Script: {instanceID: 15710}
+      Script: {instanceID: 15692}
     - Class: 114
-      Script: {instanceID: 15894}
+      Script: {instanceID: 15712}
     - Class: 114
-      Script: {instanceID: 15928}
+      Script: {instanceID: 15896}
     - Class: 114
-      Script: {instanceID: 15950}
+      Script: {instanceID: 15930}
     - Class: 114
-      Script: {instanceID: 15978}
+      Script: {instanceID: 15952}
     - Class: 114
-      Script: {instanceID: 16102}
+      Script: {instanceID: 15980}
     - Class: 114
-      Script: {instanceID: 16144}
+      Script: {instanceID: 16104}
     - Class: 114
-      Script: {instanceID: 16172}
+      Script: {instanceID: 16146}
     - Class: 114
-      Script: {instanceID: 16450}
+      Script: {instanceID: 16174}
     - Class: 114
-      Script: {instanceID: 16454}
+      Script: {instanceID: 16452}
     - Class: 114
-      Script: {instanceID: 16474}
+      Script: {instanceID: 16456}
     - Class: 114
       Script: {instanceID: 16476}
     - Class: 114
-      Script: {instanceID: 16482}
+      Script: {instanceID: 16478}
     - Class: 114
-      Script: {instanceID: 16516}
+      Script: {instanceID: 16484}
     - Class: 114
-      Script: {instanceID: 16522}
+      Script: {instanceID: 16518}
     - Class: 114
-      Script: {instanceID: 16550}
+      Script: {instanceID: 16524}
     - Class: 114
-      Script: {instanceID: 16554}
+      Script: {instanceID: 16552}
     - Class: 114
-      Script: {instanceID: 16724}
+      Script: {instanceID: 16556}
     - Class: 114
-      Script: {instanceID: 16730}
+      Script: {instanceID: 16726}
+    - Class: 114
+      Script: {instanceID: 16732}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -893,6 +896,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Anchor
+  - hash:
+      serializedVersion: 2
+      Hash: 8c12fa5d8a4799d1025b26bba9a4fd3f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: EndScene
   - hash:
       serializedVersion: 2
       Hash: 51b05e403ce1da1805851f42af02f4bb
