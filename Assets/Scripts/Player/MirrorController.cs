@@ -160,28 +160,43 @@ public class MirrorController : MonoBehaviour
                 GameObject last_mirror = MirrorStack.Pop();
                 // Delete the mirror from its three edges
                 Mirror mirror_script = last_mirror.GetComponent<Mirror>();
-                ConnectionRay edge1_script = mirror_script.FirstEdge.GetComponent<ConnectionRay>();
-                ConnectionRay edge2_script = mirror_script.SecondEdge.GetComponent<ConnectionRay>();
-                ConnectionRay edge3_script = mirror_script.ThirdEdge.GetComponent<ConnectionRay>();
+                ConnectionRay edge1_script = mirror_script.FirstEdge ? 
+                    mirror_script.FirstEdge.GetComponent<ConnectionRay>() : new ConnectionRay();
+                ConnectionRay edge2_script = mirror_script.SecondEdge ?
+                    mirror_script.SecondEdge.GetComponent<ConnectionRay>() : new ConnectionRay();
+                ConnectionRay edge3_script = mirror_script.ThirdEdge ?
+                    mirror_script.ThirdEdge.GetComponent<ConnectionRay>() : new ConnectionRay();
                 edge1_script.MirrorList.Remove(last_mirror.name);
                 edge2_script.MirrorList.Remove(last_mirror.name);
                 edge3_script.MirrorList.Remove(last_mirror.name);
                 // Reset renderings
-                if (edge1_script.MirrorList.Count != 0) {
-                    mirror_script.FirstEdge.GetComponent<MeshRenderer>().material = ActiveRayMaterial;
-                } else {
-                    mirror_script.FirstEdge.GetComponent<MeshRenderer>().material = NonactiveRayMaterial;
+                if (mirror_script.FirstEdge) {
+                    if (edge1_script.MirrorList.Count != 0)
+                    {
+                        mirror_script.FirstEdge.GetComponent<MeshRenderer>().material = ActiveRayMaterial;
+                    }
+                    else
+                    {
+                        mirror_script.FirstEdge.GetComponent<MeshRenderer>().material = NonactiveRayMaterial;
+                    }
                 }
-                if (edge2_script.MirrorList.Count != 0) {
-                    mirror_script.SecondEdge.GetComponent<MeshRenderer>().material = ActiveRayMaterial;
-                } else {
-                    mirror_script.SecondEdge.GetComponent<MeshRenderer>().material = NonactiveRayMaterial;
+                if (mirror_script.SecondEdge) {
+                    if (edge2_script.MirrorList.Count != 0 && mirror_script.SecondEdge) {
+                        mirror_script.SecondEdge.GetComponent<MeshRenderer>().material = ActiveRayMaterial;
+                    } else {
+                        mirror_script.SecondEdge.GetComponent<MeshRenderer>().material = NonactiveRayMaterial;
+                    }
                 }
-                if (edge3_script.MirrorList.Count != 0) {
-                    mirror_script.ThirdEdge.GetComponent<MeshRenderer>().material = ActiveRayMaterial;
-                } else {
-                    mirror_script.ThirdEdge.GetComponent<MeshRenderer>().material = NonactiveRayMaterial;
-                }
+                if (mirror_script.ThirdEdge) {
+                    if (edge3_script.MirrorList.Count != 0 && mirror_script.ThirdEdge)
+                    {
+                        mirror_script.ThirdEdge.GetComponent<MeshRenderer>().material = ActiveRayMaterial;
+                    }
+                    else
+                    {
+                        mirror_script.ThirdEdge.GetComponent<MeshRenderer>().material = NonactiveRayMaterial;
+                    }
+                }            
                 // Destroy mirror and its ray
                 GameObject.Destroy(last_mirror);
             } else {
